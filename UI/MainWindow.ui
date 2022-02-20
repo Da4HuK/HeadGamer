@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>511</width>
+    <height>916</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupBoxProfile">
+      <property name="title">
+       <string>Профиль:</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="labelActiveProfile">
+           <property name="text">
+            <string>Активный профиль:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBoxProfiles">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayoutProfileButtons">
+         <item>
+          <widget class="QPushButton" name="pushButtonAddProfile">
+           <property name="text">
+            <string>Добавить</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonCopyProfile">
+           <property name="text">
+            <string>Копировать</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonRenameProfile">
+           <property name="text">
+            <string>Переименовать</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonSaveProfile">
+           <property name="text">
+            <string>Сохранить</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonDeleteProfile">
+           <property name="text">
+            <string>Удалить</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Настройка окон</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QComboBox" name="comboBoxWindowsSettings">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButtonOpenWindowSettings">
+         <property name="text">
+          <string>Настройка окон</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBoxButtonsSettings">
+      <property name="title">
+       <string>Настройки кнопок:</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="labelButtonsPreset">
+           <property name="text">
+            <string>Шаблон настроек кнопок:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBoxButtonsPreset"/>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBoxUseButtonsPreset">
+           <property name="text">
+            <string>Использовать шаблон</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="3" column="0">
+          <widget class="QLabel" name="labelRight">
+           <property name="text">
+            <string>ВПРАВО</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QComboBox" name="comboBoxButtonRight"/>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="comboBoxButtonUp"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelLeft">
+           <property name="text">
+            <string>ВЛЕВО</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="labelLeftMouse">
+           <property name="text">
+            <string>ЛКМ</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="labelRightMouse">
+           <property name="text">
+            <string>ПКМ</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="comboBoxButtonLeft"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelUp">
+           <property name="text">
+            <string>ВВЕРХ</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelDown">
+           <property name="text">
+            <string>ВНИЗ</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="comboBoxButtonDown"/>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="labelMidleMouse">
+           <property name="text">
+            <string>СКМ</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QComboBox" name="comboBoxLeftMouse"/>
+         </item>
+         <item row="5" column="1">
+          <widget class="QComboBox" name="comboBoxRightMouse"/>
+         </item>
+         <item row="6" column="1">
+          <widget class="QComboBox" name="comboBoxMidleMouse"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QPushButton" name="pushButtonAddButtonsPreset">
+           <property name="text">
+            <string>Добавить</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonCopyPreset">
+           <property name="text">
+            <string>Копировать</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonRenamePreset">
+           <property name="text">
+            <string>Переименовать</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonSavePreset">
+           <property name="text">
+            <string>Сохранить</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonDeletePreset">
+           <property name="text">
+            <string>Удалить</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="radioButtonMode1">
+      <property name="text">
+       <string>Режим 1</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">buttonGroup_2</string>
+      </attribute>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBoxMode1">
+      <property name="title">
+       <string>Настройки режима 1:</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="labelDirectionCount">
+           <property name="text">
+            <string>Количество направлений:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBoxDirectionsCount">
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <property name="insertPolicy">
+            <enum>QComboBox::InsertAtBottom</enum>
+           </property>
+           <item>
+            <property name="text">
+             <string>4</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>8</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="labelMoveThreshold">
+           <property name="text">
+            <string>Порог срабатывания движения (pixel):</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBoxTriggerThreshold">
+           <property name="maximum">
+            <number>1000</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBoxKeyPresType">
+         <property name="title">
+          <string>Способ нажатия на кнопку:</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QRadioButton" name="radioButtonPressType_Hold">
+            <property name="text">
+             <string>Зажать кнопку</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QRadioButton" name="radioButtonPressType_HoldForTime">
+              <property name="text">
+               <string>Зажать кнопка на (мсек):</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinBoxButtonPressTimeout">
+              <property name="maximum">
+               <number>10000</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="radioButtonMode2">
+      <property name="text">
+       <string>Режим 2</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">buttonGroup_2</string>
+      </attribute>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonStart">
+        <property name="text">
+         <string>Start</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushClose">
+        <property name="text">
+         <string>Close</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButtonSaveProfile</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonSaveProfilePressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>402</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>470</x>
+     <y>82</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBoxProfiles</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onComboBoxButtonsProfilesCurrentTextChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>170</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>467</x>
+     <y>36</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBoxButtonsPreset</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onComboBoxButtonsPresetCurrentTextChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>305</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>471</x>
+     <y>165</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonSavePreset</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonSavePresetPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>402</x>
+     <y>573</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>467</x>
+     <y>435</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonStart</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonStartPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>414</x>
+     <y>930</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>250</x>
+     <y>706</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushClose</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonClosePressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>500</x>
+     <y>930</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>394</x>
+     <y>710</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonOpenWindowSettings</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonWindowsSettingPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>433</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>52</x>
+     <y>711</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonAddProfile</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonAddProfilePressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>72</x>
+     <y>107</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>76</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonCopyProfile</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonCopyProfilePressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>140</x>
+     <y>107</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>90</x>
+     <y>28</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonRenameProfile</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonRenameProfilePressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>227</x>
+     <y>29</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonDeleteProfile</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonDeleteProfilePressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>426</x>
+     <y>106</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>420</x>
+     <y>28</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonAddButtonsPreset</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonAddPresetPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>87</x>
+     <y>573</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonCopyPreset</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonCopyPresetPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>195</x>
+     <y>573</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>405</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonRenamePreset</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonRenamePresetPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>573</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>12</x>
+     <y>453</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonDeletePreset</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonDeletePresetPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>488</x>
+     <y>573</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBoxWindowsSettings</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onComboBoxWindowsSettingsTextChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onPushButtonSaveProfilePressed()</slot>
+  <slot>onComboBoxButtonsProfilesCurrentTextChanged(QString)</slot>
+  <slot>onComboBoxButtonsPresetCurrentTextChanged(QString)</slot>
+  <slot>onPushButtonSavePresetPressed()</slot>
+  <slot>onPushButtonStartPressed()</slot>
+  <slot>onPushButtonClosePressed()</slot>
+  <slot>onPushButtonWindowsSettingPressed()</slot>
+  <slot>onPushButtonAddProfilePressed()</slot>
+  <slot>onPushButtonCopyProfilePressed()</slot>
+  <slot>onPushButtonRenameProfilePressed()</slot>
+  <slot>onPushButtonDeleteProfilePressed()</slot>
+  <slot>onPushButtonAddPresetPressed()</slot>
+  <slot>onPushButtonCopyPresetPressed()</slot>
+  <slot>onPushButtonRenamePresetPressed()</slot>
+  <slot>onPushButtonDeletePresetPressed()</slot>
+  <slot>onComboBoxWindowsSettingsTextChanged(QString)</slot>
+ </slots>
+ <buttongroups>
+  <buttongroup name="buttonGroup_2"/>
+ </buttongroups>
+</ui>
