@@ -20,6 +20,7 @@ void KeyboardHandler::releaseKeyboardButton(const int32_t virtualKey)
     sendVirtualKeyEvent(virtualKeyEvent);
 }
 
+#ifdef Q_OS_WIN
 bool KeyboardHandler::sendVirtualKeyEvent(const HeadGamer::tVirtualKeyEvent& virtualKey)
 {
     INPUT input;
@@ -34,7 +35,6 @@ bool KeyboardHandler::sendVirtualKeyEvent(const HeadGamer::tVirtualKeyEvent& vir
         //OutputString(L"SendInput failed: 0x%x\n", HRESULT_FROM_WIN32(GetLastError()));
         return false;
     }
-
     return true;
 }
 
@@ -55,7 +55,6 @@ bool KeyboardHandler::sendVirtualKeyEvent(const std::vector<HeadGamer::tVirtualK
         //OutputString(L"SendInput failed: 0x%x\n", HRESULT_FROM_WIN32(GetLastError()));
         return false;
     }
-
     return true;
 }
 
@@ -86,3 +85,39 @@ std::shared_ptr<INPUT> KeyboardHandler::fillInputsArray(std::vector<HeadGamer::t
 
     return inputs;
 }
+#endif // Q_OS_WIN
+
+#ifdef Q_OS_UNIX
+bool KeyboardHandler::sendVirtualKeyEvent(const HeadGamer::tVirtualKeyEvent& virtualKey)
+{
+    qDebug() << "sendVirtualKeyEvent: virtualKey = " << virtualKey.virtualKey << " action = " << (int)virtualKey.action;
+    Display *display;
+    display = XOpenDisplay(NULL);
+    bool isPress = (virtualKey.action == HeadGamer::eVirtualKeyAction::PRESS);
+    int res = 0;
+    if(virtualKey.virtualKey >= KEY_LEFT_BUTTON || virtualKey.virtualKey <= KEY_WHEELDOWN)
+    {
+        res = XTestFakeButtonEvent(display, virtualKey.virtualKey, isPress, 0);
+    }
+    else
+    {
+        res = XTestFakeKeyEvent(display, virtualKey.virtualKey, isPress, 0);
+    }
+    XCloseDisplay(display);
+
+    return (res != 0);
+}
+
+bool KeyboardHandler::sendVirtualKeyEvent(const std::vector<HeadGamer::tVirtualKeyEvent>& virtualKeys)
+{
+    for(auto virtualKey : virtualKeys)
+    {
+        if(!sendVirtualKeyEvent(virtualKey))
+        {
+            qDebug() << "sendVirtualKeyEvent: failed to send virtualKey = " << virtualKey.virtualKey << " action = " << (int)virtualKey.action;
+            return false;
+        }
+    }
+    return true;
+}
+#endif

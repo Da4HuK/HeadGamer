@@ -3,7 +3,9 @@
 
 #include <QObject>
 
+#ifdef Q_OS_WIN
 #include <Windows.h>
+#endif // Q_OS_WIN
 
 class MouseHookHandler : public QObject
 {
@@ -19,7 +21,7 @@ signals:
     void mouseCoordsChanged(const int x, const int y);
 
 private:
-    HHOOK m_LowLevelMouseHookHandle;
+    //HHOOK m_LowLevelMouseHookHandle;
 };
 
 #endif // MOUSEHOOKHANDLER_H

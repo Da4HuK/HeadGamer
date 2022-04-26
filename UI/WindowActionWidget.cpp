@@ -30,7 +30,7 @@ void WindowActionWidget::setAction(const tActionPtr& action)
     mAction = action;
 }
 
-void WindowActionWidget::enterEvent(QEnterEvent* /*event*/)
+void WindowActionWidget::enterEvent(QEvent* /*event*/)
 {
     if (mAction != nullptr)
     {
@@ -57,7 +57,8 @@ void WindowActionWidget::setWidgetProperties(const tWindowActionConfigPtr& confi
 //    setWindowOpacity(0.7);
 //    setAttribute(Qt::WA_NoSystemBackground);
 //    setAttribute(Qt::WA_TranslucentBackground);
-    setAttribute(Qt::WA_PaintOnScreen);
+    //Work only for Windows
+//    setAttribute(Qt::WA_PaintOnScreen);
     setAttribute(Qt::WA_TransparentForMouseEvents);
 
     setColor(config->getColor());

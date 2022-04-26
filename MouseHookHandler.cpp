@@ -6,6 +6,7 @@
 
 MouseHookHandler* mouseHandlerPtr = nullptr;
 
+#ifdef Q_OS_WIN
 LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
     //according to msdn if retun 0 then:
@@ -24,10 +25,11 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
     return CallNextHookEx(NULL, nCode, wParam, lParam);
 }
+#endif // Q_OS_WIN
 
 MouseHookHandler::MouseHookHandler(QObject *parent)
     : QObject(parent)
-    , m_LowLevelMouseHookHandle(nullptr)
+    //, m_LowLevelMouseHookHandle(nullptr)
 {
     qDebug() << "MouseHookHandler()";
     mouseHandlerPtr = this;
@@ -44,19 +46,23 @@ MouseHookHandler::~MouseHookHandler()
 void MouseHookHandler::start()
 {
     qDebug() << "MouseHookHandler::start()";
+#ifdef Q_OS_WIN
     if(m_LowLevelMouseHookHandle == nullptr)
     {
         m_LowLevelMouseHookHandle = SetWindowsHookEx(WH_MOUSE_LL, LowLevelMouseProc, 0, 0);
     }
+#endif // Q_OS_WIN
 }
 
 void MouseHookHandler::stop()
 {
     qDebug() << "MouseHookHandler::stop()";
+#ifdef Q_OS_WIN
     if(m_LowLevelMouseHookHandle != nullptr)
     {
         UnhookWindowsHookEx(m_LowLevelMouseHookHandle);
         m_LowLevelMouseHookHandle = nullptr;
     }
+#endif // Q_OS_WIN
     qDebug() << "MouseHookHandler::stop() finished";
 }
