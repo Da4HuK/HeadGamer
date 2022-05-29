@@ -11,5 +11,5 @@ target_sources(
 target_include_directories(${TARGET} PUBLIC include)
 
 target_link_libraries(
-    ${TARGET} PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Widgets X11::Xtst ${X11_LIBRARIES} common action uiohook
+    ${TARGET} PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Widgets common action uiohook
 )

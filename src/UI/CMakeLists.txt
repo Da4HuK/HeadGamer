@@ -2,14 +2,6 @@ set(TARGET ui)
 
 add_library(${TARGET} STATIC "")
 
-#qt5_wrap_cpp(moc_gen include/UI/MainWindow.hpp include/UI/WindowConfigForm.hpp include/UI/WindowConfigItem.hpp include/UI/WindowActionWidget.hpp)
-#message("moc_gen = ${moc_gen}")
-#qt5_wrap_ui(ui_gen2 forms/MainWindow.ui aaa/ui_MainWindow.h)
-#qt5_wrap_ui(ui_gen forms/MainWindow.ui forms/WindowConfigForm.ui forms/WindowConfigItem.ui)
-
-#message("ui_gen = ${ui_gen}")
-#message("ui_gen2 = ${ui_gen2}")
-
 target_sources(
     ${TARGET}
     PRIVATE ComboBoxDelegate.cpp

@@ -144,7 +144,7 @@ int32_t findVirtualKey(const QString& buttonStr)
         return res->virtualKey;
     }
 
-    return KEY_NONE;
+    return VC_UNDEFINED;
 }
 
 QString jsonToString(const QJsonObject& json, const QString& parameterName, const QString& defaultValue)

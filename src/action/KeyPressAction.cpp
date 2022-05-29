@@ -51,7 +51,7 @@ tActionPtr KeyPressAction::jsonToAction(const QJsonObject& json)
     auto key = HeadGamer::jsonToString(json, *(HeadGamer::KEY_STR), "");
     auto virtualKey = HeadGamer::findVirtualKey(key);
 
-    if(virtualKey != KEY_NONE)
+    if(virtualKey != VC_UNDEFINED)
     {
         return std::make_shared<KeyPressAction>(key, virtualKey);
     }

@@ -91,35 +91,35 @@ void Utils::fillCombobox(QComboBox* combobox)
 
     for (const auto& virtualKey : HeadGamer::VIRTUAL_KEYS)
     {
-        if(virtualKey.virtualKey == KEY_A)
+        if(virtualKey.virtualKey == VC_A)
         {
             addParentItem(model, "Letters");
         }
-        if(virtualKey.virtualKey == KEY_0)
+        if(virtualKey.virtualKey == VC_0)
         {
             addParentItem(model, "Digits");
         }
-        if(virtualKey.virtualKey == KEY_NUM_LOCK)
+        if(virtualKey.virtualKey == VC_NUM_LOCK)
         {
             addParentItem(model, "Numpad");
         }
-        if(virtualKey.virtualKey == KEY_F1)
+        if(virtualKey.virtualKey == VC_F1)
         {
             addParentItem(model, "F buttons");
         }
-        if(virtualKey.virtualKey == KEY_UP)
+        if(virtualKey.virtualKey == VC_UP)
         {
             addParentItem(model, "Arrows");
         }
-        if(virtualKey.virtualKey == KEY_LEFT_BUTTON)
+        if(virtualKey.virtualKey == MOUSE_BUTTON1)
         {
             addParentItem(model, "Mouse buttons");
         }
-        if(virtualKey.virtualKey == KEY_SPACE)
+        if(virtualKey.virtualKey == VC_SPACE)
         {
             addParentItem(model, "Special");
         }
-        if(virtualKey.virtualKey == KEY_MINUS)
+        if(virtualKey.virtualKey == VC_MINUS)
         {
             addParentItem(model, "Signes");
         }

@@ -7,7 +7,7 @@
 #include <vector>
 #include <memory>
 
-
+#include "uiohook.h"
 
 class KeyboardHandler : public QObject
 {
@@ -31,15 +31,11 @@ private:
     explicit KeyboardHandler(QObject *parent = nullptr);
 
     KeyboardHandler(KeyboardHandler const&) = delete;
-    virtual ~KeyboardHandler() {}
+    virtual ~KeyboardHandler();
 
     KeyboardHandler& operator= (KeyboardHandler const&) = delete;
 
-#ifdef Q_OS_WIN
-    void fillInput(INPUT& input, const HeadGamer::tVirtualKeyEvent& virtualKey);
-    std::shared_ptr<INPUT> fillInputsArray(std::vector<HeadGamer::tVirtualKeyEvent> virtualKeys);
-#endif // Q_OS_WIN
-
+    uiohook_event* mKeyboardEvent;
 };
 
 #endif // KEYBOARDHANDLER_HPP

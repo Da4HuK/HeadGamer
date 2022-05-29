@@ -10,6 +10,8 @@ target_sources(
 
 target_include_directories(${TARGET} PUBLIC include)
 
+message("uiohook = ${uiohook}")
+
 target_link_libraries(
     ${TARGET} PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Widgets common keyboard action
 )

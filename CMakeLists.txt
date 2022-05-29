@@ -13,9 +13,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS  Core Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets)
-find_package(X11 REQUIRED Xtst)
 
+set(UIOHOOK_HEADERS ${CMAKE_SOURCE_DIR}/libuiohook/include)
+message("UIOHOOK_HEADERS = ${UIOHOOK_HEADERS}")
 
 add_subdirectory(libuiohook)
-add_subdirectory(src)
 
+find_library(uiohook
+    NAMES uiohook libuiohook
+    PATHS "${CMAKE_BINARY_DIR}/libuiohook"
+    NO_CACHE
+)
+
+add_subdirectory(src)
