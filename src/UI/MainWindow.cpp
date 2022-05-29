@@ -1,6 +1,6 @@
 #include "UI/MainWindow.hpp"
 #include "ui_MainWindow.h"
-#include "mouse/MouseHookHandler.hpp"
+#include "hook/HookHandler.hpp"
 #include "action/KeyPressAction.hpp"
 #include "common/Utils.hpp"
 
@@ -18,7 +18,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , mMouseHookHandler(nullptr)
+    , mHookHandler(nullptr)
     , mMouseDirectionHandler(nullptr)
     , mMouseActionHandler(nullptr)
     , mPresets(std::make_shared<Presets>())
@@ -35,7 +35,7 @@ MainWindow::~MainWindow()
 {
     qDebug() << "~MainWindow()";
     mWindowConfigForm.reset();
-    mMouseHookHandler->stop();
+    mHookHandler->stop();
     delete ui;
     qDebug() << "~MainWindow() finished";
 }
@@ -57,7 +57,7 @@ void MainWindow::onPushButtonRenameProfilePressed()
 
 void MainWindow::onPushButtonSaveProfilePressed()
 {
-    tSettingsPtr settings;
+    tSettingsPtr settings = std::make_shared<Settings>();
     fillSettings(settings);
     try
     {
@@ -113,7 +113,7 @@ void MainWindow::onPushButtonStartPressed()
 {
     if(mMouseDirectionHandler == nullptr)
     {
-        mMouseDirectionHandler = std::make_shared<Mouse4DirectionsHandler>(mMouseHookHandler);
+        mMouseDirectionHandler = std::make_shared<Mouse4DirectionsHandler>(mHookHandler);
         fillPresets(mPresets);
         mMouseActionHandler = std::make_shared<MouseActionHandler>(mPresets, mMouseDirectionHandler);
     }
@@ -177,7 +177,7 @@ void MainWindow::init()
     readProfilesList(Settings::PROFILE_DIR);
     readPresetsList(Settings::PRESET_DIR);
 
-    mMouseHookHandler = std::make_shared<MouseHookHandler>();
+    mHookHandler = std::make_shared<HookHandler>();
 }
 
 void MainWindow::createSettingsDirectories()

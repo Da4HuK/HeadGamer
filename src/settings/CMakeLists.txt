@@ -4,7 +4,9 @@ add_library(${TARGET} STATIC "")
 
 target_sources(
     ${TARGET}
-    PRIVATE Presets.cpp
+    PRIVATE include/settings/Presets.hpp
+            Presets.cpp
+            include/settings/Settings.hpp
             Settings.cpp
 )
 

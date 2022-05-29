@@ -17,13 +17,13 @@ struct sDirectionState
     bool isActive;
 };
 
-class MouseHookHandler;
+class HookHandler;
 
 class Mouse4DirectionsHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit Mouse4DirectionsHandler(std::shared_ptr<MouseHookHandler> mouseHookHandler, QObject *parent = nullptr);
+    explicit Mouse4DirectionsHandler(std::shared_ptr<HookHandler> hookHandler, QObject *parent = nullptr);
     virtual ~Mouse4DirectionsHandler();
 
     void start();
@@ -47,7 +47,7 @@ private:
     HeadGamer::eDirection deltaXToDirection(const int32_t dX);
     HeadGamer::eDirection deltaYToDirection(const int32_t dY);
 
-    std::shared_ptr<MouseHookHandler> mMouseHookHandler;
+    std::shared_ptr<HookHandler> mHookHandler;
     sDirectionState mHorizontalDirection;
     sDirectionState mVerticalDirection;
     int32_t mStartX;

@@ -32,5 +32,5 @@ target_include_directories(
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(
-    ${TARGET} PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Widgets settings action common keyboard mouse
+    ${TARGET} PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Widgets settings action common keyboard mouse hook
 )

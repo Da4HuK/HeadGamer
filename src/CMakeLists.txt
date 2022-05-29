@@ -6,6 +6,7 @@ add_subdirectory(common)
 add_subdirectory(action)
 add_subdirectory(keyboard)
 add_subdirectory(mouse)
+add_subdirectory(hook)
 
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

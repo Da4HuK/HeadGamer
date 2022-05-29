@@ -1,5 +1,6 @@
 #include "mouse/Mouse4DirectionsHandler.hpp"
 #include "mouse/MouseHookHandler.hpp"
+#include "hook/HookHandler.hpp"
 
 #include "UI/MouseInfo.hpp"
 
@@ -8,9 +9,9 @@
 
 static const int32_t WAIT_FOR_MOVE_TIMEOUT = 50;
 
-Mouse4DirectionsHandler::Mouse4DirectionsHandler(std::shared_ptr<MouseHookHandler> mouseHookHandler, QObject *parent)
+Mouse4DirectionsHandler::Mouse4DirectionsHandler(std::shared_ptr<HookHandler> hookHandler, QObject *parent)
     : QObject(parent)
-    , mMouseHookHandler(mouseHookHandler)
+    , mHookHandler(hookHandler)
     , mHorizontalDirection()
     , mVerticalDirection()
     , mStartX(0)
@@ -20,7 +21,7 @@ Mouse4DirectionsHandler::Mouse4DirectionsHandler(std::shared_ptr<MouseHookHandle
     , mVerticalTimer(nullptr)
 {
     qDebug() << "Mouse4DirectionsHandler()";
-    connect(mMouseHookHandler.get(), &MouseHookHandler::mouseCoordsChanged, this, &Mouse4DirectionsHandler::onMouseCoordsChanged);
+    connect(mHookHandler.get(), &HookHandler::mouseCoordsChanged, this, &Mouse4DirectionsHandler::onMouseCoordsChanged);
 
     mHorizontalTimer = std::make_shared<QTimer>(this);
     mHorizontalTimer->setSingleShot(true);
@@ -36,9 +37,10 @@ Mouse4DirectionsHandler::Mouse4DirectionsHandler(std::shared_ptr<MouseHookHandle
 Mouse4DirectionsHandler::~Mouse4DirectionsHandler()
 {
     qDebug() << "~Mouse4DirectionsHandler()";
-    if(mMouseHookHandler != nullptr)
+
+    if(mHookHandler != nullptr)
     {
-        mMouseHookHandler->stop();
+        mHookHandler->stop();
     }
 
     mMouseInfoWidget->close();
@@ -50,14 +52,14 @@ void Mouse4DirectionsHandler::start()
     initStartPoint();
     mMouseInfoWidget->move(1700, 0);
     mMouseInfoWidget->show();
-    mMouseHookHandler->start();
+    mHookHandler->start();
 }
 
 void Mouse4DirectionsHandler::stop()
 {
     mMouseInfoWidget->releaseAll();
     mMouseInfoWidget->close();
-    mMouseHookHandler->stop();
+    mHookHandler->stop();
 }
 
 void Mouse4DirectionsHandler::onMouseCoordsChanged(const int32_t x, const int32_t y)

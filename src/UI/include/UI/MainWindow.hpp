@@ -19,7 +19,7 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class QComboBox;
-class MouseHookHandler;
+class HookHandler;
 
 class MainWindow : public QMainWindow
 {
@@ -77,7 +77,7 @@ private:
     void fillComboboxes();
 
     Ui::MainWindow *ui;
-    std::shared_ptr<MouseHookHandler> mMouseHookHandler;
+    std::shared_ptr<HookHandler> mHookHandler;
     std::shared_ptr<Mouse4DirectionsHandler> mMouseDirectionHandler;
     std::shared_ptr<MouseActionHandler> mMouseActionHandler;
     tPresetPtr mPresets;

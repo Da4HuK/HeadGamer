@@ -14,7 +14,7 @@ MouseInfo::MouseInfo(QWidget *parent) :
 
     setWidgetProperties();
 
-    qDebug() << "~MouseInfo()";
+    qDebug() << "MouseInfo()";
     mDirectWidget->show();
 }
 
@@ -58,7 +58,7 @@ void MouseInfo::setWidgetProperties()
     setWindowOpacity(0.7);
 //    setAttribute(Qt::WA_NoSystemBackground);
 //    setAttribute(Qt::WA_TranslucentBackground);
-    setAttribute(Qt::WA_PaintOnScreen);
+//    setAttribute(Qt::WA_PaintOnScreen);
     setAttribute(Qt::WA_TransparentForMouseEvents);
 
     QPalette pal = palette();
