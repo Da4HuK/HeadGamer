@@ -30,7 +30,7 @@ void WindowActionWidget::setAction(const tActionPtr& action)
     mAction = action;
 }
 
-void WindowActionWidget::enterEvent(QEvent* /*event*/)
+void WindowActionWidget::enterEvent(QEnterEvent * /*event*/)
 {
     if (mAction != nullptr)
     {

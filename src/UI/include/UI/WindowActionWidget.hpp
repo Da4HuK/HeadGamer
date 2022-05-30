@@ -22,7 +22,7 @@ signals:
 
     // QWidget interface
 protected:
-    virtual void enterEvent(QEvent* event) override;
+    virtual void enterEvent(QEnterEvent* event) override;
 
 private:
     void setWidgetProperties(const tWindowActionConfigPtr& config);

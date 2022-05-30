@@ -13,6 +13,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(${TARGET}
         MANUAL_FINALIZATION
         ${SOURCES}
+        resources/resources.qrc
     )
 else()
     if(ANDROID)

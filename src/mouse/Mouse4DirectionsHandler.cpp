@@ -1,5 +1,4 @@
 #include "mouse/Mouse4DirectionsHandler.hpp"
-#include "mouse/MouseHookHandler.hpp"
 #include "hook/HookHandler.hpp"
 
 #include "UI/MouseInfo.hpp"
