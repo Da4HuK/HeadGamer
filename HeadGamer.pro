@@ -10,65 +10,79 @@ CONFIG += c++17
 
 TARGET = HeadGamer
 
+INCLUDEPATH += \
+    src/action/include \
+    src/common/include \
+    src/keyboard/include \
+    src/mouse/include \
+    src/settings/include \
+    src/UI/include
+
 SOURCES += \
-    action/ActionBase.cpp \
-    action/KeyPressAction.cpp \
-    action/MacroAction.cpp \
-    KeyboardHandler.cpp \
-    Mouse4DirectionsHandler.cpp \
-    MouseActionHandler.cpp \
-    MouseHookHandler.cpp \
-    MouseInfo.cpp \
-    Presets.cpp \
-    Settings.cpp \
-    Types.cpp \
-    UI/ComboBoxDelegate.cpp \
-    UI/DirectionButton.cpp \
-    UI/DirectionWidget.cpp \
-    UI/WindowActionWidget.cpp \
-    UI/WindowConfigForm.cpp \
-    UI/WindowConfigItem.cpp \
-    Utils.cpp \
-    WindowActionConfig.cpp \
-    main.cpp \
-    MainWindow.cpp
+    src/main.cpp \
+    src/action/ActionBase.cpp \
+    src/action/KeyPressAction.cpp \
+    src/action/MacroAction.cpp \
+    src/action/WindowActionConfig.cpp \
+    src/common/Types.cpp \
+    src/common/Utils.cpp \
+    src/keyboard/KeyboardHandler.cpp \
+    src/mouse/Mouse4DirectionsHandler.cpp \
+    src/mouse/MouseActionHandler.cpp \
+    src/mouse/MouseHookHandler.cpp \
+    src/settings/Presets.cpp \
+    src/settings/Settings.cpp \
+    src/UI/MouseInfo.cpp \
+    src/UI/ComboBoxDelegate.cpp \
+    src/UI/DirectionButton.cpp \
+    src/UI/DirectionWidget.cpp \
+    src/UI/WindowActionWidget.cpp \
+    src/UI/WindowConfigForm.cpp \
+    src/UI/WindowConfigItem.cpp \
+    src/UI/MainWindow.cpp
 
 HEADERS += \
-    action/IAction.hpp \
-    action/ActionBase.hpp \
-    action/KeyPressAction.hpp \
-    action/MacroAction.hpp \
-    KeyboardHandler.hpp \
-    MainWindow.hpp \
-    Mouse4DirectionsHandler.hpp \
-    MouseActionHandler.hpp \
-    MouseHookHandler.hpp \
-    MouseInfo.hpp \
-    Presets.hpp \
-    Settings.hpp \
-    Types.hpp \
-    UI/ComboBoxDelegate.hpp \
-    UI/DirectionButton.hpp \
-    UI/DirectionWidget.hpp \
-    UI/WindowActionWidget.hpp \
-    UI/WindowConfigForm.hpp \
-    UI/WindowConfigItem.hpp \
-    Utils.hpp \
-    VirtualKeys.hpp \
-    WindowActionConfig.hpp
+    src/action/include/action/IAction.hpp \
+    src/action/include/action/ActionBase.hpp \
+    src/action/include/action/KeyPressAction.hpp \
+    src/action/include/action/MacroAction.hpp \
+    src/action/include/action/WindowActionConfig.hpp \
+    src/common/include/common/Types.hpp \
+    src/common/include/common/Utils.hpp \
+    src/keyboard/include/keyboard/VirtualKeys.hpp \
+    src/keyboard/include/keyboard/KeyboardHandler.hpp \
+    src/mouse/include/mouse/Mouse4DirectionsHandler.hpp \
+    src/mouse/include/mouse/MouseActionHandler.hpp \
+    src/mouse/include/mouse/MouseHookHandler.hpp \
+    src/settings/include/settings/Presets.hpp \
+    src/settings/include/settings/Settings.hpp \
+    src/UI/include/UI/MouseInfo.hpp \
+    src/UI/include/UI/MainWindow.hpp \
+    src/UI/include/UI/ComboBoxDelegate.hpp \
+    src/UI/include/UI/DirectionButton.hpp \
+    src/UI/include/UI/DirectionWidget.hpp \
+    src/UI/include/UI/WindowActionWidget.hpp \
+    src/UI/include/UI/WindowConfigForm.hpp \
+    src/UI/include/UI/WindowConfigItem.hpp
 
 FORMS += \
-    UI/MainWindow.ui \
-    UI/MouseInfo.ui \
-    UI/WindowConfigForm.ui \
-    UI/WindowConfigItem.ui
+    src/UI/MainWindow.ui \
+    src/UI/MouseInfo.ui \
+    src/UI/WindowConfigForm.ui \
+    src/UI/WindowConfigItem.ui
 
 # Default rules for deployment.
 #qnx: target.path = /tmp/$${TARGET}/bin
 #else: unix:!android: target.path = /opt/$${TARGET}/bin
 #!isEmpty(target.path): INSTALLS += target
 
-win32: LIBS +=  -luser32
+unix {
+    LIBS +=  -lX11 -lXtst
+}
+
+win32 {
+    LIBS +=  -luser32
+}
 
 RESOURCES += \
-    resources/resources.qrc
+    src/resources/resources.qrc

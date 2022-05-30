@@ -1,0 +1,4 @@
+[submodule "libuiohook"]
+	path = libuiohook
+	url = https://github.com/Da4HuK/libuiohook.git
+	branch = bugfix/fix_init_input_helper
