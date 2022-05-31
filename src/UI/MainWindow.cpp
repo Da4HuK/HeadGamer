@@ -61,7 +61,7 @@ void MainWindow::onPushButtonSaveProfilePressed()
     fillSettings(settings);
     try
     {
-        QString fileName = QFileDialog::getSaveFileName(this, "Save profile file", Settings::PROFILE_DIR, tr("Profile files (*.json *.JSON)"));
+        QString fileName = Utils::getSaveFileName("Save profile file", Settings::PROFILE_DIR, tr("Profile files (*.json *.JSON)"));
         Utils::writeFile<Settings>(fileName, settings);
     }
     catch (std::exception ex)
@@ -95,7 +95,7 @@ void MainWindow::onPushButtonSavePresetPressed()
     fillPresets(mPresets);
     try
     {
-        QString fileName = QFileDialog::getSaveFileName(this, "Save presets file", Settings::PRESET_DIR, tr("Presets files (*.json *.JSON)"));
+        QString fileName = Utils::getSaveFileName("Save presets file", Settings::PRESET_DIR, tr("Presets files (*.json *.JSON)"));
         Utils::writeFile<Presets>(fileName, mPresets);
     }
     catch (std::exception ex)
@@ -225,10 +225,10 @@ void MainWindow::initProfileSettingsControls(const tSettingsPtr& settings)
     ui->comboBoxDirectionsCount->setCurrentText(
                 (settings->getDirectionsCount() == HeadGamer::eDirectionsCount::FOUR) ? "4" : "8");
     ui->spinBoxTriggerThreshold->setValue(settings->getTriggerThreshold());
+    ui->spinBoxButtonPressTimeout->setValue(settings->getButtonPressTimeOut());
 
     switch(settings->getMode())
     {
-
     case HeadGamer::eMode::MODE_1:
         ui->radioButtonMode1->setChecked(true);
         break;
@@ -240,6 +240,21 @@ void MainWindow::initProfileSettingsControls(const tSettingsPtr& settings)
         ui->radioButtonMode1->setChecked(false);
         ui->radioButtonMode2->setChecked(false);
         break;
+    }
+
+    switch(settings->getButtonPressType())
+    {
+        case HeadGamer::eButtonPressType::HOLD:
+            ui->radioButtonPressType_Hold->setChecked(true);
+            break;
+        case HeadGamer::eButtonPressType::HOLD_FOR_TIME:
+            ui->radioButtonPressType_HoldForTime->setChecked(true);
+            break;
+        case HeadGamer::eButtonPressType::UNDEFINED:
+            ui->radioButtonPressType_Hold->setChecked(false);
+            ui->radioButtonPressType_HoldForTime->setChecked(false);
+        default:
+            break;
     }
 }
 

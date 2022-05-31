@@ -39,7 +39,7 @@ void WindowConfigForm::onPushButtonRenameWindowConfigPressed()
 void WindowConfigForm::onPushButtonSaveWindowConfigPressed()
 {
     // TODO implement
-    QString fileName = QFileDialog::getSaveFileName(this, "Save windows file", Settings::WINDOW_DIR, tr("Windows files (*.json *.JSON)"));
+    QString fileName = Utils::getSaveFileName("Save windows file", Settings::WINDOW_DIR, tr("Windows files (*.json *.JSON)"));
     tContsWindowActionConfigPtr cfg = mWindowsItemsVector[0]->getWindowActionConfig();
     Utils::writeFile(fileName, cfg);
 }
