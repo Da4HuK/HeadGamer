@@ -30,6 +30,7 @@ public:
     static void addChildItem(QStandardItemModel* model, const QString& text, const QVariant& data);
     static tActionPtr getActionFromCombobox(const QComboBox* combobox);
     static tActionPtr readActionFromFile(const QString& path);
+    static QString getSaveFileName(const QString& caption, const QString& dir, const QString& filter);
 };
 
 
@@ -39,7 +40,7 @@ bool Utils::writeFile(const QString& path, const std::shared_ptr<const T>& objec
     QFile file(path);
     if (!file.open(QIODevice::WriteOnly))
     {
-        qWarning("Couldn't save file '%s'", path);
+        qWarning("Couldn't save file '%s'", path.toStdString().c_str());
         return false;
     }
 

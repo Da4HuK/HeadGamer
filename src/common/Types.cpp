@@ -2,6 +2,23 @@
 
 #include <algorithm>
 
+static const QString MODE_KEY("mode");
+static const QString MODE_1("MODE_1");
+static const QString MODE_2("MODE_2");
+
+static const QString DIRECTIONS_COUNT_KEY("directionsCount");
+static const int8_t FOUR_DIRECTIONS = 4;
+static const int8_t EIGHT_DIRECTIONS = 8;
+
+static const QString BUTTON_PRESS_TYPE_KEY("buttonPressType");
+static const QString HOLD("HOLD");
+static const QString HOLD_FOR_TIME("HOLD_FOR_TIME");
+
+static const QString UP("UP");
+static const QString DOWN("DOWN");
+static const QString LEFT("LEFT");
+static const QString RIGHT("RIGHT");
+
 namespace HeadGamer
 {
 
@@ -11,10 +28,10 @@ QString modeToJson(const eMode mode)
     switch (mode)
     {
     case eMode::MODE_1:
-        result = "MODE_1";
+        result = MODE_1;
         break;
     case eMode::MODE_2:
-        result = "MODE_2";
+        result = MODE_2;
         break;
     case eMode::UNDEFINED:
     default:
@@ -26,18 +43,18 @@ QString modeToJson(const eMode mode)
 
 eMode jsonToMode(const QJsonObject& json)
 {
-    if((json.contains("mode") == false) || (json["mode"].isString() == false))
+    if((json.contains(MODE_KEY) == false) || (json[MODE_KEY].isString() == false))
     {
         return eMode::UNDEFINED;
     }
 
-    QString strMode = json["mode"].toString();
-    if(strMode == "MODE_1")
+    QString strMode = json[MODE_KEY].toString();
+    if(strMode == MODE_1)
     {
         return eMode::MODE_1;
     }
 
-    if(strMode == "MODE_2")
+    if(strMode == MODE_2)
     {
         return eMode::MODE_2;
     }
@@ -47,14 +64,14 @@ eMode jsonToMode(const QJsonObject& json)
 
 int8_t directionsCountToJson(const eDirectionsCount directionsCount)
 {
-    int8_t result = 4;
+    int8_t result = FOUR_DIRECTIONS;
     switch (directionsCount)
     {
     case eDirectionsCount::FOUR:
-        result = 4;
+        result = FOUR_DIRECTIONS;
         break;
     case eDirectionsCount::EIGHT:
-        result = 8;
+        result = EIGHT_DIRECTIONS;
         break;
     default:
         break;
@@ -66,18 +83,18 @@ int8_t directionsCountToJson(const eDirectionsCount directionsCount)
 eDirectionsCount jsonToDirectionsCount(const QJsonObject& json)
 {
     eDirectionsCount result = eDirectionsCount::FOUR;
-    if((json.contains("directionsCount") == false) || (json["directionsCount"].isDouble() == false))
+    if((json.contains(DIRECTIONS_COUNT_KEY) == false) || (json[DIRECTIONS_COUNT_KEY].isDouble() == false))
     {
         return result;
     }
 
-    int8_t directionCount = json["directionsCount"].toInt();
+    int8_t directionCount = json[DIRECTIONS_COUNT_KEY].toInt();
     switch (directionCount)
     {
-    case 4:
+    case FOUR_DIRECTIONS:
         result = eDirectionsCount::FOUR;
         break;
-    case 8:
+    case EIGHT_DIRECTIONS:
         result = eDirectionsCount::EIGHT;
         break;
     }
@@ -92,10 +109,10 @@ QString buttonPressTypeToJson(const eButtonPressType buttonPressType)
     switch (buttonPressType)
     {
     case eButtonPressType::HOLD:
-        result = "HOLD";
+        result = HOLD;
         break;
     case eButtonPressType::HOLD_FOR_TIME:
-        result = "HOLD_FOR_TIME";
+        result = HOLD_FOR_TIME;
         break;
     case eButtonPressType::UNDEFINED:
     default:
@@ -107,18 +124,18 @@ QString buttonPressTypeToJson(const eButtonPressType buttonPressType)
 
 eButtonPressType jsonToButtonPressType(const QJsonObject& json)
 {
-    if((json.contains("buttonPressType") == false) || (json["buttonPressType"].isString() == false))
+    if((json.contains(BUTTON_PRESS_TYPE_KEY) == false) || (json[BUTTON_PRESS_TYPE_KEY].isString() == false))
     {
         return eButtonPressType::UNDEFINED;
     }
 
-    QString strButtonPressType = json["mode"].toString();
-    if(strButtonPressType == "HOLD")
+    QString strButtonPressType = json[BUTTON_PRESS_TYPE_KEY].toString();
+    if(strButtonPressType == HOLD)
     {
         return eButtonPressType::HOLD;
     }
 
-    if(strButtonPressType == "HOLD_FOR_TIME")
+    if(strButtonPressType == HOLD_FOR_TIME)
     {
         return eButtonPressType::HOLD_FOR_TIME;
     }
@@ -163,16 +180,16 @@ QString directionToJson(const eDirection direction)
     switch (direction)
     {
     case HeadGamer::eDirection::UP:
-        result = "UP";
+        result = UP;
         break;
     case HeadGamer::eDirection::DOWN:
-        result = "DOWN";
+        result = DOWN;
         break;
     case HeadGamer::eDirection::LEFT:
-        result = "LEFT";
+        result = LEFT;
         break;
     case HeadGamer::eDirection::RIGHT:
-        result = "RIGHT";
+        result = RIGHT;
         break;
 
     default:

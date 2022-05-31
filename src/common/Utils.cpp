@@ -3,9 +3,10 @@
 #include "action/MacroAction.hpp"
 #include "common/Types.hpp"
 #include "settings/Settings.hpp"
+#include "UI/ComboBoxDelegate.hpp"
 
 #include <QDirIterator>
-#include "UI/ComboBoxDelegate.hpp"
+#include <QFileDialog>
 
 Utils::Utils()
 {
@@ -191,4 +192,14 @@ tActionPtr Utils::readActionFromFile(const QString& path)
     }
 
     return nullptr;
+}
+
+QString Utils::getSaveFileName(const QString& caption, const QString& dir, const QString& filter)
+{
+    QString fileName = QFileDialog::getSaveFileName(nullptr, caption, dir, filter);
+    if(fileName.endsWith(".json", Qt::CaseInsensitive) == false)
+    {
+        fileName.append(".json");
+    }
+    return fileName;
 }
