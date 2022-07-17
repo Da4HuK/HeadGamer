@@ -2,17 +2,18 @@
 #define PRESETS_H
 
 #include "action/IAction.hpp"
+#include "common/IJson.hpp"
 
 #include <memory>
 class Presets;
 using tPresetPtr = std::shared_ptr<Presets>;
 using tContsPresetPtr = const std::shared_ptr<const Presets>;
 
-class Presets
+class Presets : public IJson
 {
 public:
-    QJsonObject toJson() const;
-    static void fromJson(const QJsonObject& json, const tPresetPtr& presets);
+    QJsonObject toJson()  const override;
+    void fromJson(const QJsonObject& json) override;
 
     const tActionPtr& getUpAction() const;
     void setUpAction(const tActionPtr& newUpAction);

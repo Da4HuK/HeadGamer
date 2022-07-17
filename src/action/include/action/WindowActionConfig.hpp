@@ -2,6 +2,7 @@
 #define WINDOWACTIONCONFIG_HPP
 
 #include "action/IAction.hpp"
+#include "common/IJson.hpp"
 
 #include <string>
 #include <QColor>
@@ -11,13 +12,13 @@ class WindowActionConfig;
 using tWindowActionConfigPtr = std::shared_ptr<WindowActionConfig>;
 using tContsWindowActionConfigPtr = const std::shared_ptr<const WindowActionConfig>;
 
-class WindowActionConfig
+class WindowActionConfig : public IJson
 {
 public:
     WindowActionConfig();
 
-    QJsonObject toJson() const;
-    static void fromJson(const QJsonObject& json, const tWindowActionConfigPtr& windowConfig);
+    QJsonObject toJson() const override;
+    void fromJson(const QJsonObject& json) override;
 
     const QString& getName() const;
     void setName(const QString& newName);

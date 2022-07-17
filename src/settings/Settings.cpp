@@ -15,16 +15,16 @@ QJsonObject Settings::toJson() const
     return json;
 }
 
-void Settings::fromJson(const QJsonObject& json, const tSettingsPtr& settings)
+void Settings::fromJson(const QJsonObject& json)
 {
-    settings->setMode(HeadGamer::jsonToMode(json));
-    settings->setPresetName(HeadGamer::jsonToString(json, "presetName"));
-    settings->setWindowCinfigName(HeadGamer::jsonToString(json, "windowCinfigName"));
+    setMode(HeadGamer::jsonToMode(json));
+    setPresetName(HeadGamer::jsonToString(json, "presetName"));
+    setWindowCinfigName(HeadGamer::jsonToString(json, "windowCinfigName"));
     //MODE_1
-    settings->setDirectionsCount(HeadGamer::jsonToDirectionsCount(json));
-    settings->setTriggerThreshold(HeadGamer::jsonToInt32(json, "triggerThreshold", 100));
-    settings->setButtonPressType(HeadGamer::jsonToButtonPressType(json));
-    settings->setButtonPressTimeOut(HeadGamer::jsonToInt32(json, "buttonPressTimeOut", 50));
+    setDirectionsCount(HeadGamer::jsonToDirectionsCount(json));
+    setTriggerThreshold(HeadGamer::jsonToInt32(json, "triggerThreshold", 100));
+    setButtonPressType(HeadGamer::jsonToButtonPressType(json));
+    setButtonPressTimeOut(HeadGamer::jsonToInt32(json, "buttonPressTimeOut", 50));
 }
 
 const HeadGamer::tMouseDirectionBinding& Settings::getDirectionBindings() const

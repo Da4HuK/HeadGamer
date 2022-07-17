@@ -4,6 +4,15 @@
 
 #include <QDebug>
 
+KeyPressAction::KeyPressAction()
+    : ActionBase("")
+    , mKey("")
+    , mVirtualKey(VC_UNDEFINED)
+    , mKeyboardHandler(KeyboardHandler::getInstance())
+{
+
+}
+
 KeyPressAction::KeyPressAction(const QString& key, const int32_t virtualKey)
     : ActionBase(key)
     , mKey(key)
@@ -46,15 +55,15 @@ QJsonObject KeyPressAction::toJson() const
     return json;
 }
 
-tActionPtr KeyPressAction::jsonToAction(const QJsonObject& json)
+void KeyPressAction::fromJson(const QJsonObject& json)
 {
     auto key = HeadGamer::jsonToString(json, *(HeadGamer::KEY_STR), "");
     auto virtualKey = HeadGamer::findVirtualKey(key);
 
     if(virtualKey != VC_UNDEFINED)
     {
-        return std::make_shared<KeyPressAction>(key, virtualKey);
+        mKey = key;
+        mVirtualKey = virtualKey;
+        setName(mKey);
     }
-
-    return nullptr;
 }

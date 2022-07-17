@@ -1,10 +1,12 @@
 #ifndef IACTION_HPP
 #define IACTION_HPP
 
+#include "common/IJson.hpp"
+
 #include <QJsonObject>
 #include <memory>
 
-class IAction
+class IAction : public IJson
 {
 public:
     virtual ~IAction() = default;
@@ -12,7 +14,6 @@ public:
     virtual void action() = 0;
     virtual void start() = 0;
     virtual void stop() = 0;
-    virtual QJsonObject toJson() const = 0;
     virtual const QString& getName() const = 0;
 };
 

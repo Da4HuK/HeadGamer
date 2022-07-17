@@ -30,13 +30,13 @@ public:
     virtual ~MainWindow();
 
 private slots:
-    void onPushButtonAddProfilePressed();
+    void onPushButtonCreateProfilePressed();
     void onPushButtonCopyProfilePressed();
     void onPushButtonRenameProfilePressed();
     void onPushButtonSaveProfilePressed();
     void onPushButtonDeleteProfilePressed();
 
-    void onPushButtonAddPresetPressed();
+    void onPushButtonCreatePresetPressed();
     void onPushButtonCopyPresetPressed();
     void onPushButtonRenamePresetPressed();
     void onPushButtonSavePresetPressed();
@@ -58,6 +58,7 @@ private:
     void readProfileFile(const QString& fileName, const tSettingsPtr& settings);
     void readPresetsList(const QString& path);
     void readPresetFile(const QString& fileName, const tPresetPtr& presets);
+    void readWindowConfigsList(const QString& path);
     void initProfileSettingsControls(const tSettingsPtr& settings);
     void initPresetControls(tContsPresetPtr& presets);
     void fillSettings(tSettingsPtr& settings);
@@ -85,6 +86,7 @@ private:
     std::shared_ptr<WindowActionWidget> mWindowAction;
     std::shared_ptr<WindowConfigForm> mWindowConfigForm;
 
-
+    bool mIsProfileChanged;
+    bool mIsPresetChanged;
 };
 #endif // MAINWINDOW_HPP

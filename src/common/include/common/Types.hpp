@@ -95,6 +95,7 @@ Q_GLOBAL_STATIC_WITH_ARGS(const QString, TYPE_STR, ("type") );
 Q_GLOBAL_STATIC_WITH_ARGS(const QString, KEY_STR, ("key") );
 Q_GLOBAL_STATIC_WITH_ARGS(const QString, MACROS_STR, ("macros") );
 Q_GLOBAL_STATIC_WITH_ARGS(const QString, PATH_TO_ACTION_STR, ("path") );
+Q_GLOBAL_STATIC_WITH_ARGS(const QString, WINDOW_ACTION_CONFIG_LIST_STR, ("windowActionConfigList") );
 
 //Action names
 Q_GLOBAL_STATIC_WITH_ARGS(const QString, KEY_PRESS_ACTION_STR, ("KeyPressAction") );
@@ -114,6 +115,7 @@ Q_GLOBAL_STATIC_WITH_ARGS(const QString, WINDOW_COLOR_B_STR, ("B") );
 Q_GLOBAL_STATIC_WITH_ARGS(const QString, WINDOW_COLOR_ALPHA_STR, ("ALPHA") );
 
 Q_GLOBAL_STATIC_WITH_ARGS(const QString, ACTION_STR, ("action") );
+Q_GLOBAL_STATIC_WITH_ARGS(const QString, ACTION_NONE_STR, ("None") );
 
 //Key: direction, value: button/action name
 using tMouseDirectionBinding = std::map<eDirection, QString>;
@@ -138,7 +140,7 @@ static const int32_t MOUSE_WHEEL_DOWN = 0xFFE1;
 
 static const tVirtualKeys VIRTUAL_KEYS
 {
-    {"None", VC_UNDEFINED},
+    {*(HeadGamer::ACTION_NONE_STR), VC_UNDEFINED},
 
     {"A", VC_A},
     {"B", VC_B},

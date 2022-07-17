@@ -13,6 +13,7 @@ class KeyboardHandler;
 class KeyPressAction : public ActionBase
 {
 public:
+    KeyPressAction();
     KeyPressAction(const QString& key, const int32_t virtualKey);
 
     virtual ~KeyPressAction() override;
@@ -21,9 +22,10 @@ public:
     virtual void action() override;
     virtual void start() override;
     virtual void stop() override;
-    virtual QJsonObject toJson() const override;
 
-    static tActionPtr jsonToAction(const QJsonObject& json);
+    // IJson interface
+    virtual QJsonObject toJson() const override;
+    void fromJson(const QJsonObject& json);
 
 private:
     QString mKey;

@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
     , mPresets(std::make_shared<Presets>())
     , mWindowAction(nullptr)
     , mWindowConfigForm(nullptr)
+    , mIsProfileChanged(false)
+    , mIsPresetChanged(false)
 {
     ui->setupUi(this);
 
@@ -40,9 +42,11 @@ MainWindow::~MainWindow()
     qDebug() << "~MainWindow() finished";
 }
 
-void MainWindow::onPushButtonAddProfilePressed()
+void MainWindow::onPushButtonCreateProfilePressed()
 {
-
+    QString fileName = Utils::createFile("Create profile file", Settings::PROFILE_DIR, tr("Profile files (*.json *.JSON)"));
+    readProfilesList(Settings::PROFILE_DIR);
+    Utils::setActiveComboboxElementByName(ui->comboBoxProfiles, Utils::getFileName(fileName));
 }
 
 void MainWindow::onPushButtonCopyProfilePressed()
@@ -61,8 +65,8 @@ void MainWindow::onPushButtonSaveProfilePressed()
     fillSettings(settings);
     try
     {
-        QString fileName = Utils::getSaveFileName("Save profile file", Settings::PROFILE_DIR, tr("Profile files (*.json *.JSON)"));
-        Utils::writeFile<Settings>(fileName, settings);
+        QString fileName =  Settings::PROFILE_DIR + "/" + Utils::getFileNameFromCombobox(ui->comboBoxProfiles);
+        Utils::writeFile(fileName, settings);
     }
     catch (std::exception ex)
     {
@@ -75,9 +79,11 @@ void MainWindow::onPushButtonDeleteProfilePressed()
 
 }
 
-void MainWindow::onPushButtonAddPresetPressed()
+void MainWindow::onPushButtonCreatePresetPressed()
 {
-
+    QString fileName = Utils::createFile("Create presets file", Settings::PRESET_DIR, tr("Presets files (*.json *.JSON)"));
+    readPresetsList(Settings::PRESET_DIR);
+    Utils::setActiveComboboxElementByName(ui->comboBoxButtonsPreset, Utils::getFileName(fileName));
 }
 
 void MainWindow::onPushButtonCopyPresetPressed()
@@ -95,8 +101,8 @@ void MainWindow::onPushButtonSavePresetPressed()
     fillPresets(mPresets);
     try
     {
-        QString fileName = Utils::getSaveFileName("Save presets file", Settings::PRESET_DIR, tr("Presets files (*.json *.JSON)"));
-        Utils::writeFile<Presets>(fileName, mPresets);
+        QString fileName =  Settings::PRESET_DIR + "/" + Utils::getFileNameFromCombobox(ui->comboBoxButtonsPreset);
+        Utils::writeFile(fileName, mPresets);
     }
     catch (std::exception ex)
     {
@@ -158,6 +164,8 @@ void MainWindow::onComboBoxButtonsPresetCurrentTextChanged(const QString& text)
     {
         readPresetFile(text, mPresets);
         initPresetControls(mPresets);
+        mIsPresetChanged = true;
+        Utils::markSettingsComboboxChanged(ui->comboBoxProfiles);
     }
 }
 
@@ -165,6 +173,8 @@ void MainWindow::onComboBoxWindowsSettingsTextChanged(const QString& text)
 {
     if(text.isEmpty() == false)
     {
+        // TODO read modal window exit code to check if window config changed
+        Utils::markSettingsComboboxChanged(ui->comboBoxProfiles);
 //        readPresetFile(text, mPresets);
 //        initPresetControls(mPresets);
     }
@@ -176,6 +186,7 @@ void MainWindow::init()
     createSettingsDirectories();
     readProfilesList(Settings::PROFILE_DIR);
     readPresetsList(Settings::PRESET_DIR);
+    readWindowConfigsList(Settings::WINDOW_DIR);
 
     mHookHandler = std::make_shared<HookHandler>();
 }
@@ -217,6 +228,11 @@ void MainWindow::readPresetFile(const QString& fileName, const tPresetPtr& prese
 {
     QString presetFilePath = Settings::PRESET_DIR + "/" + fileName;
     Utils::readFile(presetFilePath, presets);
+}
+
+void MainWindow::readWindowConfigsList(const QString& path)
+{
+    Utils::fillComboboxWithJsonFileNames(ui->comboBoxWindowsSettings, path);
 }
 
 void MainWindow::initProfileSettingsControls(const tSettingsPtr& settings)
@@ -264,7 +280,7 @@ void MainWindow::initPresetControls(tContsPresetPtr& presets)
     {
         if(action == nullptr)
         {
-            combobox->setCurrentText("None");
+            combobox->setCurrentText(*(HeadGamer::ACTION_NONE_STR));
         }
         else
         {

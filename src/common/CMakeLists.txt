@@ -4,8 +4,11 @@ add_library(${TARGET} STATIC "")
 
 target_sources(
     ${TARGET}
-    PRIVATE Types.cpp
+    PRIVATE include/common/Types.hpp
+            Types.cpp
+            include/common/Utils.hpp
             Utils.cpp
+            include/common/IJson.hpp
 )
 
 target_include_directories(${TARGET} PUBLIC include ${UIOHOOK_HEADERS})

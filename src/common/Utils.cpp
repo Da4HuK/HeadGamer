@@ -60,11 +60,13 @@ tActionPtr Utils::jsonToAction(const QJsonObject& json)
 
             if(json[*(HeadGamer::TYPE_STR)] == *(HeadGamer::KEY_PRESS_ACTION_STR))
             {
-                action = KeyPressAction::jsonToAction(json);
+                action = std::make_shared<KeyPressAction>();
+                action->fromJson(json);
             }
             else if(json[*(HeadGamer::TYPE_STR)] == *(HeadGamer::MACRO_ACTION_STR))
             {
-                action = MacroAction::jsonToAction(json);
+                action = std::make_shared<MacroAction>();
+                action->fromJson(json);
             }
             //Same for other actions
 
@@ -129,7 +131,7 @@ void Utils::fillCombobox(QComboBox* combobox)
 
     addParentItem(model, "Scripts");
     jsonCallback callback = [&model](QString fileName) { addChildItem(model, fileName, 0); };
-    Utils::doForAllJsonFiles(Settings::SCRIPT_DIR, callback);
+    doForAllJsonFiles(Settings::SCRIPT_DIR, callback);
 
     combobox->setModel(model);
     combobox->setItemDelegate(new ComboBoxDelegate);
@@ -158,7 +160,7 @@ void Utils::addChildItem(QStandardItemModel* model, const QString& text, const Q
 tActionPtr Utils::getActionFromCombobox(const QComboBox* combobox)
 {
     QString text = combobox->currentText();
-    if(text == "None")
+    if(text == *(HeadGamer::ACTION_NONE_STR))
     {
         return nullptr;
     }
@@ -176,13 +178,6 @@ tActionPtr Utils::getActionFromCombobox(const QComboBox* combobox)
 
 tActionPtr Utils::readActionFromFile(const QString& path)
 {
-//    QFile file(path);
-//    if (!file.open(QIODevice::ReadOnly))
-//    {
-//        // TODO strange why it works in headsr file
-//        qWarning("Couldn't read file '%s'", path.toStdString().c_str());
-//        return nullptr;
-//    }
     QJsonDocument jsonDocument;
     if (readJsonFile(path, jsonDocument))
     {
@@ -194,12 +189,74 @@ tActionPtr Utils::readActionFromFile(const QString& path)
     return nullptr;
 }
 
-QString Utils::getSaveFileName(const QString& caption, const QString& dir, const QString& filter)
+QString Utils::createFile(const QString& caption, const QString& dir, const QString& filter)
 {
     QString fileName = QFileDialog::getSaveFileName(nullptr, caption, dir, filter);
     if(fileName.endsWith(".json", Qt::CaseInsensitive) == false)
     {
         fileName.append(".json");
     }
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly))
+    {
+        qWarning("Couldn't save file '%s'", fileName.toStdString().c_str());
+    }
+
     return fileName;
+}
+
+void Utils::setActiveComboboxElementByName(QComboBox* combobox, const QString& name)
+{
+    const int32_t index = combobox->findText(name);
+    const int32_t INVALID_INDEX = -1;
+    if(index == INVALID_INDEX)
+    {
+        qWarning("Couldn't find element with name '%s'", name.toStdString().c_str());
+        return;
+    }
+
+    combobox->setCurrentIndex(index);
+}
+
+QString Utils::getFileName(const QString& path)
+{
+    const QFileInfo info(path);
+    return info.fileName();
+}
+
+QString Utils::getFileNameFromCombobox(const QComboBox* combobox)
+{
+    //Delete " *" (used to show that config modified)
+    return combobox->currentText().remove(" *");
+}
+
+void Utils::markSettingsComboboxChanged(QComboBox* combobox)
+{
+    combobox->setItemText(combobox->currentIndex(), combobox->currentText() + " *");
+}
+
+bool Utils::writeFile(const QString& path, const std::shared_ptr<const IJson>& objectToSave)
+{
+    QFile file(path);
+    if (!file.open(QIODevice::WriteOnly))
+    {
+        qWarning("Couldn't save file '%s'", path.toStdString().c_str());
+        return false;
+    }
+
+    QJsonObject json = objectToSave->toJson();
+    return (file.write(QJsonDocument(json).toJson()) != -1);
+}
+
+bool Utils::readFile(const QString& path, const std::shared_ptr<IJson>& objectToRead)
+{
+    QJsonDocument jsonDocument;
+    if (readJsonFile(path, jsonDocument))
+    {
+        objectToRead->fromJson(jsonDocument.object());
+        return true;
+    }
+
+    return false;
 }
