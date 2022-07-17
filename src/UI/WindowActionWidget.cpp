@@ -44,7 +44,6 @@ void WindowActionWidget::enterEvent(QEnterEvent * /*event*/)
     }
 }
 
-
 void WindowActionWidget::setWidgetProperties(const tWindowActionConfigPtr& config)
 {
     mAction.reset();

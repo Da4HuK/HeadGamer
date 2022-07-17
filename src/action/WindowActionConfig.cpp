@@ -2,7 +2,13 @@
 #include "common/Types.hpp"
 
 WindowActionConfig::WindowActionConfig()
-//    : mPathToMacro("")
+    : mName("")
+    , mWidth(100)
+    , mHeight(100)
+    , mX(0)
+    , mY(0)
+    , mColor(QColorConstants::Red)
+    , mAction(nullptr)
 {
 
 }
@@ -31,15 +37,15 @@ QJsonObject WindowActionConfig::toJson() const
     return json;
 }
 
-void WindowActionConfig::fromJson(const QJsonObject& json, const tWindowActionConfigPtr& windowConfig)
+void WindowActionConfig::fromJson(const QJsonObject& json)
 {
-    windowConfig->setName(HeadGamer::jsonToString(json, *(HeadGamer::WINDOW_ACTION_NAME_STR), ""));
-    windowConfig->setWidth(HeadGamer::jsonToInt32(json, *(HeadGamer::WINDOW_WIDTH_STR), 100));
-    windowConfig->setHeight(HeadGamer::jsonToInt32(json, *(HeadGamer::WINDOW_HEIGHT_STR), 100));
-    windowConfig->setX(HeadGamer::jsonToInt32(json, *(HeadGamer::WINDOW_POSITION_X_STR), 0));
-    windowConfig->setY(HeadGamer::jsonToInt32(json, *(HeadGamer::WINDOW_POSITION_Y_STR), 0));
-    windowConfig->setColor(HeadGamer::jsonToColor(json));
-    windowConfig->setAction(Utils::jsonToAction(*(HeadGamer::ACTION_STR), json));
+    setName(HeadGamer::jsonToString(json, *(HeadGamer::WINDOW_ACTION_NAME_STR), ""));
+    setWidth(HeadGamer::jsonToInt32(json, *(HeadGamer::WINDOW_WIDTH_STR), 100));
+    setHeight(HeadGamer::jsonToInt32(json, *(HeadGamer::WINDOW_HEIGHT_STR), 100));
+    setX(HeadGamer::jsonToInt32(json, *(HeadGamer::WINDOW_POSITION_X_STR), 0));
+    setY(HeadGamer::jsonToInt32(json, *(HeadGamer::WINDOW_POSITION_Y_STR), 0));
+    setColor(HeadGamer::jsonToColor(json));
+    setAction(Utils::jsonToAction(*(HeadGamer::ACTION_STR), json));
 }
 
 const QString& WindowActionConfig::getName() const

@@ -12,20 +12,23 @@ using tContsMacroActionPtr = const std::shared_ptr<const MacroAction>;
 class MacroAction : public ActionBase
 {
 public:
+    MacroAction();
     MacroAction(const QString& name);
 
     // IAction interface
     void action() override;
     void start() override;
     void stop() override;
+
+    //IJson interface
     QJsonObject toJson() const override;
+    void fromJson(const QJsonObject& json) override;
 
     void addAction(tActionPtr action);
     void removeAction(int32_t index);
 
     // TODO implement swap method
 
-    static tMacroActionPtr jsonToAction(const QJsonObject& json);
 
     void setPathToMacro(const QString& path);
 

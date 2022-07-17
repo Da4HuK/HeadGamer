@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>511</width>
-    <height>916</height>
+    <height>789</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -51,9 +51,9 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayoutProfileButtons">
          <item>
-          <widget class="QPushButton" name="pushButtonAddProfile">
+          <widget class="QPushButton" name="pushButtonCreateProfile">
            <property name="text">
-            <string>Добавить</string>
+            <string>Создать</string>
            </property>
           </widget>
          </item>
@@ -226,9 +226,9 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
-          <widget class="QPushButton" name="pushButtonAddButtonsPreset">
+          <widget class="QPushButton" name="pushButtonCreatePreset">
            <property name="text">
-            <string>Добавить</string>
+            <string>Создать</string>
            </property>
           </widget>
          </item>
@@ -469,8 +469,8 @@
    <slot>onPushButtonSaveProfilePressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>402</x>
-     <y>133</y>
+     <x>398</x>
+     <y>97</y>
     </hint>
     <hint type="destinationlabel">
      <x>470</x>
@@ -485,8 +485,8 @@
    <slot>onComboBoxButtonsProfilesCurrentTextChanged(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>170</x>
-     <y>71</y>
+     <x>321</x>
+     <y>63</y>
     </hint>
     <hint type="destinationlabel">
      <x>467</x>
@@ -501,8 +501,8 @@
    <slot>onComboBoxButtonsPresetCurrentTextChanged(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>305</x>
-     <y>297</y>
+     <x>319</x>
+     <y>282</y>
     </hint>
     <hint type="destinationlabel">
      <x>471</x>
@@ -517,8 +517,8 @@
    <slot>onPushButtonSavePresetPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>402</x>
-     <y>573</y>
+     <x>398</x>
+     <y>518</y>
     </hint>
     <hint type="destinationlabel">
      <x>467</x>
@@ -534,7 +534,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>414</x>
-     <y>930</y>
+     <y>865</y>
     </hint>
     <hint type="destinationlabel">
      <x>250</x>
@@ -550,7 +550,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>500</x>
-     <y>930</y>
+     <y>865</y>
     </hint>
     <hint type="destinationlabel">
      <x>394</x>
@@ -565,28 +565,12 @@
    <slot>onPushButtonWindowsSettingPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>433</x>
-     <y>215</y>
+     <x>489</x>
+     <y>190</y>
     </hint>
     <hint type="destinationlabel">
      <x>52</x>
      <y>711</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButtonAddProfile</sender>
-   <signal>pressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onPushButtonAddProfilePressed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>72</x>
-     <y>107</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>5</x>
-     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -597,8 +581,8 @@
    <slot>onPushButtonCopyProfilePressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>140</x>
-     <y>107</y>
+     <x>196</x>
+     <y>97</y>
     </hint>
     <hint type="destinationlabel">
      <x>90</x>
@@ -613,8 +597,8 @@
    <slot>onPushButtonRenameProfilePressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>133</y>
+     <x>308</x>
+     <y>97</y>
     </hint>
     <hint type="destinationlabel">
      <x>227</x>
@@ -629,28 +613,12 @@
    <slot>onPushButtonDeleteProfilePressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>426</x>
-     <y>106</y>
+     <x>488</x>
+     <y>97</y>
     </hint>
     <hint type="destinationlabel">
      <x>420</x>
      <y>28</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButtonAddButtonsPreset</sender>
-   <signal>pressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onPushButtonAddPresetPressed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>87</x>
-     <y>573</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>3</x>
-     <y>428</y>
     </hint>
    </hints>
   </connection>
@@ -661,8 +629,8 @@
    <slot>onPushButtonCopyPresetPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>195</x>
-     <y>573</y>
+     <x>196</x>
+     <y>518</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -677,8 +645,8 @@
    <slot>onPushButtonRenamePresetPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>573</y>
+     <x>308</x>
+     <y>518</y>
     </hint>
     <hint type="destinationlabel">
      <x>12</x>
@@ -694,7 +662,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>488</x>
-     <y>573</y>
+     <y>518</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -709,12 +677,44 @@
    <slot>onComboBoxWindowsSettingsTextChanged(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>73</x>
-     <y>202</y>
+     <x>94</x>
+     <y>190</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
      <y>203</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonCreateProfile</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonCreateProfilePressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>71</x>
+     <y>5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonCreatePreset</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPushButtonCreatePresetPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>82</x>
+     <y>513</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>537</y>
     </hint>
    </hints>
   </connection>
@@ -727,11 +727,11 @@
   <slot>onPushButtonStartPressed()</slot>
   <slot>onPushButtonClosePressed()</slot>
   <slot>onPushButtonWindowsSettingPressed()</slot>
-  <slot>onPushButtonAddProfilePressed()</slot>
+  <slot>onPushButtonCreateProfilePressed()</slot>
   <slot>onPushButtonCopyProfilePressed()</slot>
   <slot>onPushButtonRenameProfilePressed()</slot>
   <slot>onPushButtonDeleteProfilePressed()</slot>
-  <slot>onPushButtonAddPresetPressed()</slot>
+  <slot>onPushButtonCreatePresetPressed()</slot>
   <slot>onPushButtonCopyPresetPressed()</slot>
   <slot>onPushButtonRenamePresetPressed()</slot>
   <slot>onPushButtonDeletePresetPressed()</slot>

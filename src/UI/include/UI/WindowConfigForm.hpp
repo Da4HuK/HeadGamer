@@ -1,7 +1,7 @@
 #ifndef WINDOWCONFIGFORM_HPP
 #define WINDOWCONFIGFORM_HPP
 
-#include "action/WindowActionConfig.hpp"
+#include "action/WindowActionConfigList.hpp"
 #include "WindowConfigItem.hpp"
 
 #include <QDialog>
@@ -30,9 +30,16 @@ private slots:
     void onPushButtonAddWindowPressed();
     void onDeleteWindowConfigItem(WindowConfigItem* item);
 
+    void onComboBoxWindowConfigListCurrentTextChanged(const QString& text);
+
+
 private:
     void clearAllWindows();
+    void readWindowConfigList(const QString& path);
+    void readWindowConfigFile(const QString& fileName, const tWindowActionConfigListPtr& windowConfigList);
+    void addWindowsActionConfigItem(tWindowActionConfigPtr& windowActionConfig);
     Ui::WindowConfigForm *ui;
+    tWindowActionConfigListPtr mWindowActionConfigList;
     std::vector<tWindowConfigItemPtr> mWindowsItemsVector;
     int32_t mLastIndex;
 

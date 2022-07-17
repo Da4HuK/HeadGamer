@@ -13,6 +13,8 @@ WindowConfigForm::WindowConfigForm(QWidget *parent)
     , mLastIndex(0)
 {
     ui->setupUi(this);
+    mWindowActionConfigList = std::make_shared<WindowActionConfigList>();
+    readWindowConfigList(Settings::WINDOW_DIR);
 }
 
 WindowConfigForm::~WindowConfigForm()
@@ -23,7 +25,9 @@ WindowConfigForm::~WindowConfigForm()
 
 void WindowConfigForm::onPushButtonAddWindowConfigPressed()
 {
-
+    QString fileName = Utils::createFile("Create windows file", Settings::WINDOW_DIR, tr("Windows files (*.json *.JSON)"));
+    readWindowConfigList(Settings::WINDOW_DIR);
+    Utils::setActiveComboboxElementByName(ui->comboBoxWindowConfigList, Utils::getFileName(fileName));
 }
 
 void WindowConfigForm::onPushButtonCopyWindowConfigPressed()
@@ -38,10 +42,8 @@ void WindowConfigForm::onPushButtonRenameWindowConfigPressed()
 
 void WindowConfigForm::onPushButtonSaveWindowConfigPressed()
 {
-    // TODO implement
-    QString fileName = Utils::getSaveFileName("Save windows file", Settings::WINDOW_DIR, tr("Windows files (*.json *.JSON)"));
-    tContsWindowActionConfigPtr cfg = mWindowsItemsVector[0]->getWindowActionConfig();
-    Utils::writeFile(fileName, cfg);
+    QString fileName =  Settings::WINDOW_DIR + "/" + Utils::getFileNameFromCombobox(ui->comboBoxWindowConfigList);
+    Utils::writeFile(fileName, mWindowActionConfigList);
 }
 
 void WindowConfigForm::onPushButtonDeleteWindowConfigPressed()
@@ -51,27 +53,68 @@ void WindowConfigForm::onPushButtonDeleteWindowConfigPressed()
 
 void WindowConfigForm::onPushButtonAddWindowPressed()
 {
-    tWindowConfigItemPtr windowConfigItem = std::make_shared<WindowConfigItem>(this);
-    mWindowsItemsVector.push_back(windowConfigItem);
-    connect(windowConfigItem.get(), &WindowConfigItem::deleteItem, this, &WindowConfigForm::onDeleteWindowConfigItem);
-    ui->verticalLayoutWindowsItems->insertWidget(mLastIndex, windowConfigItem.get());
-    ++mLastIndex;
+    tWindowActionConfigPtr windowActionConfig = std::make_shared<WindowActionConfig>();
+    mWindowActionConfigList->getList().push_back(windowActionConfig);
+    addWindowsActionConfigItem(windowActionConfig);
 }
 
 void WindowConfigForm::onDeleteWindowConfigItem(WindowConfigItem* item)
 {
-    ui->verticalLayoutWindowsItems->removeWidget(item);
+    auto& configList = mWindowActionConfigList->getList();
+    configList.erase(std::remove_if(configList.begin(),
+                                    configList.end(),
+                                    [item](auto& config) { return config == item->getWindowActionConfig(); } ));
+
     mWindowsItemsVector.erase(std::remove_if(mWindowsItemsVector.begin(),
-                              mWindowsItemsVector.end(),
-                              [item](tWindowConfigItemPtr element){ return element.get() == item; }));
+                                             mWindowsItemsVector.end(),
+                                             [&item](auto& element){ return element.get() == item; }));
     --mLastIndex;
+    ui->verticalLayoutWindowsItems->removeWidget(item);
+}
+
+void WindowConfigForm::onComboBoxWindowConfigListCurrentTextChanged(const QString& text)
+{
+    clearAllWindows();
+    QString windowsActionListConfigPath = Settings::WINDOW_DIR + "/" + text;
+    readWindowConfigFile(windowsActionListConfigPath, mWindowActionConfigList);
 }
 
 void WindowConfigForm::clearAllWindows()
 {
     mLastIndex = 0;
     mWindowsItemsVector.clear();
+    mWindowActionConfigList->getList().clear();
 }
+
+void WindowConfigForm::readWindowConfigList(const QString& path)
+{
+    Utils::fillComboboxWithJsonFileNames(ui->comboBoxWindowConfigList, path);
+}
+
+void WindowConfigForm::readWindowConfigFile(const QString& fileName, const tWindowActionConfigListPtr& windowConfigList)
+{
+    if(Utils::readFile(fileName, windowConfigList))
+    {
+        for(auto& config : windowConfigList->getList())
+        {
+            addWindowsActionConfigItem(config);
+        }
+    }
+    else
+    {
+        qDebug() << "Error to read " << fileName;
+    }
+}
+
+void WindowConfigForm::addWindowsActionConfigItem(tWindowActionConfigPtr& windowActionConfig)
+{
+    tWindowConfigItemPtr windowConfigItem = std::make_shared<WindowConfigItem>(windowActionConfig, this);
+    mWindowsItemsVector.push_back(windowConfigItem);
+    connect(windowConfigItem.get(), &WindowConfigItem::deleteItem, this, &WindowConfigForm::onDeleteWindowConfigItem);
+    ui->verticalLayoutWindowsItems->insertWidget(mLastIndex, windowConfigItem.get());
+    ++mLastIndex;
+}
+
 
 void WindowConfigForm::hideEvent(QHideEvent* /*event*/)
 {

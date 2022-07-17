@@ -1,5 +1,6 @@
 #include "settings/Presets.hpp"
 #include "common/Utils.hpp"
+#include "common/Types.hpp"
 
 static const QString UP_ACTION_NAME = {"Up"};
 static const QString DOWN_ACTION_NAME = {"Down"};
@@ -27,16 +28,16 @@ QJsonObject Presets::toJson() const
     return json;
 }
 
-void Presets::fromJson(const QJsonObject& json, const tPresetPtr& presets)
+void Presets::fromJson(const QJsonObject& json)
 {
-    presets->setUpAction( Utils::jsonToAction(UP_ACTION_NAME, json));
-    presets->setDownAction( Utils::jsonToAction(DOWN_ACTION_NAME, json));
-    presets->setLeftAction( Utils::jsonToAction(LEFT_ACTION_NAME, json));
-    presets->setRightAction( Utils::jsonToAction(RIGHT_ACTION_NAME, json));
+    setUpAction( Utils::jsonToAction(UP_ACTION_NAME, json));
+    setDownAction( Utils::jsonToAction(DOWN_ACTION_NAME, json));
+    setLeftAction( Utils::jsonToAction(LEFT_ACTION_NAME, json));
+    setRightAction( Utils::jsonToAction(RIGHT_ACTION_NAME, json));
 
-    presets->setLeftMouseAction(Utils::jsonToAction(LEFT_MOUSE_ACTION_NAME, json));
-    presets->setRightMouseAction(Utils::jsonToAction(RIGHT_MOUSE_ACTION_NAME, json));
-    presets->setMiddleMouseAction(Utils::jsonToAction(MIDDLE_MOUSE_ACTION_NAME, json));
+    setLeftMouseAction(Utils::jsonToAction(LEFT_MOUSE_ACTION_NAME, json));
+    setRightMouseAction(Utils::jsonToAction(RIGHT_MOUSE_ACTION_NAME, json));
+    setMiddleMouseAction(Utils::jsonToAction(MIDDLE_MOUSE_ACTION_NAME, json));
 }
 
 void Presets::actionToJson(const QString& name, tContsActionPtr action, QJsonObject& json)
@@ -48,7 +49,7 @@ void Presets::actionToJson(const QString& name, tContsActionPtr action, QJsonObj
 
     if(action == nullptr)
     {
-        json[name] = "none";
+        json[name] = *(HeadGamer::ACTION_NONE_STR);
     }
     else
     {

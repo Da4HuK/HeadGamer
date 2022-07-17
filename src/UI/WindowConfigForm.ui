@@ -36,7 +36,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="comboBoxWindowConfigList">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -104,7 +104,7 @@
         <x>0</x>
         <y>0</y>
         <width>1080</width>
-        <height>310</height>
+        <height>318</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayoutWindowsItems">
@@ -186,8 +186,8 @@
    <slot>onPushButtonAddWindowPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>839</x>
-     <y>25</y>
+     <x>1089</x>
+     <y>33</y>
     </hint>
     <hint type="destinationlabel">
      <x>418</x>
@@ -202,8 +202,8 @@
    <slot>onPushButtonSaveWindowConfigPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>719</x>
-     <y>33</y>
+     <x>969</x>
+     <y>32</y>
     </hint>
     <hint type="destinationlabel">
      <x>356</x>
@@ -218,8 +218,8 @@
    <slot>onPushButtonAddWindowConfigPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>419</x>
-     <y>20</y>
+     <x>684</x>
+     <y>30</y>
     </hint>
     <hint type="destinationlabel">
      <x>363</x>
@@ -234,8 +234,8 @@
    <slot>onPushButtonCopyWindowConfigPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>507</x>
-     <y>22</y>
+     <x>771</x>
+     <y>32</y>
     </hint>
     <hint type="destinationlabel">
      <x>504</x>
@@ -250,8 +250,8 @@
    <slot>onPushButtonRenameWindowConfigPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>591</x>
-     <y>25</y>
+     <x>883</x>
+     <y>32</y>
     </hint>
     <hint type="destinationlabel">
      <x>587</x>
@@ -266,12 +266,28 @@
    <slot>onPushButtonDeleteWindowConfigPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>763</x>
-     <y>23</y>
+     <x>1055</x>
+     <y>32</y>
     </hint>
     <hint type="destinationlabel">
      <x>764</x>
      <y>5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBoxWindowConfigList</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>WindowConfigForm</receiver>
+   <slot>onComboBoxWindowConfigListCurrentTextChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>41</x>
+     <y>36</y>
     </hint>
    </hints>
   </connection>
@@ -283,5 +299,6 @@
   <slot>onPushButtonRenameWindowConfigPressed()</slot>
   <slot>onPushButtonDeleteWindowConfigPressed()</slot>
   <slot>onPushButtonAddWindowConfigPressed()</slot>
+  <slot>onComboBoxWindowConfigListCurrentTextChanged(QString)</slot>
  </slots>
 </ui>

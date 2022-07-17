@@ -396,7 +396,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>931</x>
-     <y>64</y>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
      <x>713</x>
@@ -411,8 +411,8 @@
    <slot>onPushButtonSelectColorPressed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>373</x>
-     <y>58</y>
+     <x>367</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
      <x>125</x>
@@ -443,8 +443,8 @@
    <slot>onXChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>469</x>
-     <y>59</y>
+     <x>461</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
      <x>296</x>
@@ -459,8 +459,8 @@
    <slot>onYChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>550</x>
-     <y>59</y>
+     <x>540</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
      <x>451</x>
@@ -475,8 +475,8 @@
    <slot>onWidthChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>643</x>
-     <y>59</y>
+     <x>630</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
      <x>452</x>
@@ -491,8 +491,8 @@
    <slot>onHeightChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>716</x>
-     <y>59</y>
+     <x>702</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
      <x>601</x>
@@ -516,6 +516,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>lineEditWindowName</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>WindowConfigItem</receiver>
+   <slot>onLineEditWindowNameTextChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>113</x>
+     <y>34</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>141</x>
+     <y>29</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onPushButtonDeletePressed()</slot>
@@ -526,5 +542,6 @@
   <slot>onWidthChanged(int)</slot>
   <slot>onHeightChanged(int)</slot>
   <slot>onComboBoxActionTypeCurrentTextChanged(QString)</slot>
+  <slot>onLineEditWindowNameTextChanged(QString)</slot>
  </slots>
 </ui>

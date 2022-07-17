@@ -4,10 +4,16 @@ add_library(${TARGET} STATIC "")
 
 target_sources(
     ${TARGET}
-    PRIVATE ActionBase.cpp
+    PRIVATE include/action/ActionBase.hpp
+            ActionBase.cpp
+            include/action/KeyPressAction.hpp
             KeyPressAction.cpp
+            include/action/MacroAction.hpp
             MacroAction.cpp
+            include/action/WindowActionConfig.hpp
             WindowActionConfig.cpp
+            include/action/WindowActionConfigList.hpp
+            WindowActionConfigList.cpp
 )
 
 target_include_directories(${TARGET} PUBLIC include)

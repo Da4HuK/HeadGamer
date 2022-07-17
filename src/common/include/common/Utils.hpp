@@ -2,7 +2,7 @@
 #define UTILS_HPP
 
 #include "action/IAction.hpp"
-//#include "keyboard/VirtualKeys.hpp"
+#include "common/IJson.hpp"
 
 #include <QFile>
 #include <QJsonDocument>
@@ -22,49 +22,23 @@ public:
     static bool readJsonFile(const QString& path, QJsonDocument& result);
     static tActionPtr jsonToAction(const QString& name, const QJsonObject& json);
     static tActionPtr jsonToAction(const QJsonObject& json);
-    template<typename T> static bool writeFile(const QString& path, const std::shared_ptr<const T>& objectToSave);
-    template<typename T> static bool readFile(const QString& path, const std::shared_ptr<T>& result);
+    static bool writeFile(const QString& path, const std::shared_ptr<const IJson>& objectToSave);
+    static bool readFile(const QString& path, const std::shared_ptr<IJson>& objectToRead);
     static void doForAllJsonFiles(const QString& path, const jsonCallback& callback);
     static void fillCombobox(QComboBox* combobox);
     static void addParentItem(QStandardItemModel* model, const QString& text);
     static void addChildItem(QStandardItemModel* model, const QString& text, const QVariant& data);
     static tActionPtr getActionFromCombobox(const QComboBox* combobox);
     static tActionPtr readActionFromFile(const QString& path);
-    static QString getSaveFileName(const QString& caption, const QString& dir, const QString& filter);
+    // returns created file name
+    static QString createFile(const QString& caption, const QString& dir, const QString& filter);
+    static void setActiveComboboxElementByName(QComboBox* combobox, const QString& name);
+    static QString getFileName(const QString& path);
+    static QString getFileNameFromCombobox(const QComboBox* combobox);
+    static void markSettingsComboboxChanged(QComboBox* combobox);
 };
 
 
-template<typename T>
-bool Utils::writeFile(const QString& path, const std::shared_ptr<const T>& objectToSave)
-{
-    QFile file(path);
-    if (!file.open(QIODevice::WriteOnly))
-    {
-        qWarning("Couldn't save file '%s'", path.toStdString().c_str());
-        return false;
-    }
 
-    QJsonObject json = objectToSave->toJson();
-    return (file.write(QJsonDocument(json).toJson()) != -1);
-}
 
-template<typename T>
-bool Utils::readFile(const QString& path, const std::shared_ptr<T>& result)
-{
-//    QFile file(path);
-//    if (!file.open(QIODevice::ReadOnly))
-//    {
-//        qWarning("Couldn't read file '%s'", path);
-//        return false;
-//    }
-//    QJsonDocument jsonDocument(QJsonDocument::fromJson(file.readAll()));
-    QJsonDocument jsonDocument;
-    if (readJsonFile(path, jsonDocument))
-    {
-        T::fromJson(jsonDocument.object(), result);
-        return true;
-    }
-
-    return false;
-}
 #endif // UTILS_HPP

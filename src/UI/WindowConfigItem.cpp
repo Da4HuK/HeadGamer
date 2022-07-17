@@ -12,14 +12,24 @@
 #include <QDebug>
 
 
-WindowConfigItem::WindowConfigItem(QWidget *parent)
+WindowConfigItem::WindowConfigItem(tWindowActionConfigPtr& config, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::WindowConfigItem)
     , mColor()
 {
     ui->setupUi(this);
-    mWindowActionWidget = std::make_shared<WindowActionWidget>(getWindowActionConfig());
     Utils::fillCombobox(ui->comboBoxActionType);
+
+    if (config == nullptr)
+    {
+        mWindowActionConfig = getWindowActionConfig();
+    }
+    else
+    {
+        setWindowActionConfig(config);
+    }
+
+    mWindowActionWidget = std::make_shared<WindowActionWidget>(mWindowActionConfig);
 }
 
 WindowConfigItem::~WindowConfigItem()
@@ -27,10 +37,16 @@ WindowConfigItem::~WindowConfigItem()
     qDebug() << "~WindowConfigItem()";
     delete ui;
     mWindowActionWidget.reset();
+    mWindowActionConfig.reset();
 }
 
 tWindowActionConfigPtr WindowConfigItem::getWindowActionConfig()
 {
+    if (mWindowActionConfig != nullptr)
+    {
+        return mWindowActionConfig;
+    }
+
     tWindowActionConfigPtr config = std::make_shared<WindowActionConfig>();
     config->setName(ui->lineEditWindowName->text());
     config->setAction(Utils::getActionFromCombobox(ui->comboBoxActionType));
@@ -42,8 +58,29 @@ tWindowActionConfigPtr WindowConfigItem::getWindowActionConfig()
     return config;
 }
 
+void WindowConfigItem::setWindowActionConfig(tWindowActionConfigPtr& config)
+{
+    mWindowActionConfig = config;
+    ui->lineEditWindowName->setText(mWindowActionConfig->getName());
+    mColor = config->getColor();
+    ui->spinBoxWidth->setValue(config->getWidth());
+    ui->spinBoxHeight->setValue(config->getHeight());
+    ui->spinBoxPositionX->setValue(config->getX());
+    ui->spinBoxPositionY->setValue(config->getY());
+
+    if(mWindowActionConfig->getAction() == nullptr)
+    {
+        Utils::setActiveComboboxElementByName(ui->comboBoxActionType, *(HeadGamer::ACTION_NONE_STR));
+    }
+    else
+    {
+        Utils::setActiveComboboxElementByName(ui->comboBoxActionType, mWindowActionConfig->getAction()->getName());
+    }
+}
+
 void WindowConfigItem::onPushButtonDeletePressed()
 {
+//    mWindowActionConfig.reset();
     emit deleteItem(this);
 }
 
@@ -59,6 +96,11 @@ void WindowConfigItem::onPushButtonSelectColorPressed()
         {
             mWindowActionWidget->setColor(mColor);
         }
+
+        if(mWindowActionConfig != nullptr)
+        {
+            mWindowActionConfig->setColor(mColor);
+        }
     }
 }
 
@@ -67,9 +109,26 @@ void WindowConfigItem::onPushButtonShowPressed()
     mWindowActionWidget->show();
 }
 
-void WindowConfigItem::onComboBoxActionTypeCurrentTextChanged(const QString& text)
+void WindowConfigItem::onComboBoxActionTypeCurrentTextChanged(const QString& /*text*/)
 {
-    mWindowActionWidget->setAction(Utils::getActionFromCombobox(ui->comboBoxActionType));
+    tActionPtr action = Utils::getActionFromCombobox(ui->comboBoxActionType);
+    if(mWindowActionWidget != nullptr)
+    {
+        mWindowActionWidget->setAction(action);
+    }
+
+    if(mWindowActionConfig != nullptr)
+    {
+        mWindowActionConfig->setAction(action);
+    }
+}
+
+void WindowConfigItem::onLineEditWindowNameTextChanged(const QString& text)
+{
+    if(mWindowActionConfig != nullptr)
+    {
+        mWindowActionConfig->setName(text);
+    }
 }
 
 void WindowConfigItem::onXChanged(int x)
@@ -77,6 +136,11 @@ void WindowConfigItem::onXChanged(int x)
     if(mWindowActionWidget != nullptr)
     {
         mWindowActionWidget->move(x, ui->spinBoxPositionY->value());
+    }
+
+    if(mWindowActionConfig != nullptr)
+    {
+        mWindowActionConfig->setX(x);
     }
 }
 
@@ -86,6 +150,11 @@ void WindowConfigItem::onYChanged(int y)
     {
         mWindowActionWidget->move(ui->spinBoxPositionX->value(), y);
     }
+
+    if(mWindowActionConfig != nullptr)
+    {
+        mWindowActionConfig->setY(y);
+    }
 }
 
 void WindowConfigItem::onWidthChanged(int width)
@@ -94,6 +163,11 @@ void WindowConfigItem::onWidthChanged(int width)
     {
         mWindowActionWidget->resize(width, ui->spinBoxHeight->value());
     }
+
+    if(mWindowActionConfig != nullptr)
+    {
+        mWindowActionConfig->setWidth(width);
+    }
 }
 
 void WindowConfigItem::onHeightChanged(int height)
@@ -101,6 +175,11 @@ void WindowConfigItem::onHeightChanged(int height)
     if(mWindowActionWidget != nullptr)
     {
         mWindowActionWidget->resize(ui->spinBoxWidth->value(), height);
+    }
+
+    if(mWindowActionConfig != nullptr)
+    {
+        mWindowActionConfig->setHeight(height);
     }
 }
 

@@ -2,6 +2,7 @@
 #define SETTINGS_HPP
 
 #include "common/Types.hpp"
+#include "common/IJson.hpp"
 
 #include <vector>
 #include <memory>
@@ -10,7 +11,7 @@ class Settings;
 using tSettingsPtr = std::shared_ptr<Settings>;
 using tConstSettingstPtr = const std::shared_ptr<const Settings>;
 
-class Settings
+class Settings : public IJson
 {
 public:
     inline static const QString PROFILE_DIR = "settings/profiles";
@@ -18,8 +19,8 @@ public:
     inline static const QString SCRIPT_DIR = "settings/scripts";
     inline static const QString WINDOW_DIR = "settings/windows";
 
-    QJsonObject toJson() const;
-    static void fromJson(const QJsonObject& json, const tSettingsPtr& settings);
+    QJsonObject toJson() const override;
+    void fromJson(const QJsonObject& json) override;
 
     const HeadGamer::tMouseDirectionBinding& getDirectionBindings() const;
     void setDirectionBindings(const HeadGamer::tMouseDirectionBinding& newDirectionBindings);
