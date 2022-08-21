@@ -1,5 +1,4 @@
 #include "UI/MainWindow.hpp"
-#include "common/Types.hpp"
 
 #include <QApplication>
 #include <QDebug>

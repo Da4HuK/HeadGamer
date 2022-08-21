@@ -1,6 +1,7 @@
 #include "common/Utils.hpp"
 #include "action/KeyPressAction.hpp"
 #include "action/MacroAction.hpp"
+#include "action/StopAction.hpp"
 #include "common/Types.hpp"
 #include "settings/Settings.hpp"
 #include "UI/ComboBoxDelegate.hpp"
@@ -68,6 +69,11 @@ tActionPtr Utils::jsonToAction(const QJsonObject& json)
                 action = std::make_shared<MacroAction>();
                 action->fromJson(json);
             }
+            else if(json[*(HeadGamer::TYPE_STR)] == *(HeadGamer::STOP_ACTION_STR))
+            {
+                action = std::make_shared<StopAction>();
+                action->fromJson(json);
+            }
             //Same for other actions
 
             return action;
@@ -129,8 +135,11 @@ void Utils::fillCombobox(QComboBox* combobox)
         addChildItem(model, virtualKey.buttonStr, virtualKey.virtualKey);
     }
 
+    addParentItem(model, "Actions");
+    addChildItem(model, "Stop", HeadGamer::STOP_ACTION);
+
     addParentItem(model, "Scripts");
-    jsonCallback callback = [&model](QString fileName) { addChildItem(model, fileName, 0); };
+    jsonCallback callback = [&model](QString fileName) { addChildItem(model, fileName, HeadGamer::SCRIPT_ACTION); };
     doForAllJsonFiles(Settings::SCRIPT_DIR, callback);
 
     combobox->setModel(model);
@@ -167,10 +176,15 @@ tActionPtr Utils::getActionFromCombobox(const QComboBox* combobox)
 
     auto data = combobox->currentData().value<int32_t>();
     // It is script => read action from json file
-    if (data == 0)
+    if (data == HeadGamer::SCRIPT_ACTION)
     {
         const QString path = Settings::SCRIPT_DIR + "/" + text;
         return readActionFromFile(path);
+    }
+
+    if(data == HeadGamer::STOP_ACTION)
+    {
+        return std::make_shared<StopAction>();
     }
 
     return std::make_shared<KeyPressAction>(text, data);

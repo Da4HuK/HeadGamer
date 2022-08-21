@@ -1,4 +1,5 @@
 #include "hook/HookHandler.hpp"
+#include "uiohook.h"
 #include <QDebug>
 
 
@@ -11,7 +12,7 @@ void hookProc(uiohook_event* const event, void* /*user_data*/)
         return;
     }
 
-    qDebug() << "hookProc: type = " << event->type << " time = " << event->time << " mask = " << event->mask;
+//    qDebug() << "hookProc: type = " << event->type << " time = " << event->time << " mask = " << event->mask;
 
     switch (event->type) {
         case EVENT_HOOK_ENABLED:

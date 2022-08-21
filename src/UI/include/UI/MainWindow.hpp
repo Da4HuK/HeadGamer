@@ -50,6 +50,8 @@ private slots:
     void onComboBoxButtonsPresetCurrentTextChanged(const QString& text);
     void onComboBoxWindowsSettingsTextChanged(const QString& text);
 
+    void onStopEvent();
+
 private:
     void init();
     void createSettingsDirectories();
@@ -60,9 +62,12 @@ private:
     void readPresetFile(const QString& fileName, const tPresetPtr& presets);
     void readWindowConfigsList(const QString& path);
     void initProfileSettingsControls(const tSettingsPtr& settings);
-    void initPresetControls(tContsPresetPtr& presets);
+    void initPresetControls(tConstPresetPtr& presets);
     void fillSettings(tSettingsPtr& settings);
     void fillPresets(tPresetPtr& presets);
+    void fillWindowActionWidgetList();
+    void showAllWindowActionWidgets();
+    void hideAllWindowActionWidgets();
     HeadGamer::eMode getMode();
     QString getPresetName();
     HeadGamer::eDirectionsCount getDirectionsCount();
@@ -83,9 +88,11 @@ private:
     std::shared_ptr<MouseActionHandler> mMouseActionHandler;
     tPresetPtr mPresets;
 
-    std::shared_ptr<WindowActionWidget> mWindowAction;
+    std::vector<tWindowActionWidgetPtr> mWindowActionWidgetList;
+    tWindowActionConfigListPtr mWindowActionConfigList;
     std::shared_ptr<WindowConfigForm> mWindowConfigForm;
 
+    bool mIsInitialized;
     bool mIsProfileChanged;
     bool mIsPresetChanged;
 };

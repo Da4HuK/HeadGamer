@@ -40,7 +40,7 @@ void Presets::fromJson(const QJsonObject& json)
     setMiddleMouseAction(Utils::jsonToAction(MIDDLE_MOUSE_ACTION_NAME, json));
 }
 
-void Presets::actionToJson(const QString& name, tContsActionPtr action, QJsonObject& json)
+void Presets::actionToJson(const QString& name, tConstActionPtr action, QJsonObject& json)
 {
     if(name.isEmpty())
     {

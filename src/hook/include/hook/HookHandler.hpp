@@ -1,8 +1,6 @@
 #ifndef HOOK_HANDLER_HPP
 #define HOOK_HANDLER_HPP
 
-#include "uiohook.h"
-
 #include <QObject>
 #include <memory>
 #include <thread>

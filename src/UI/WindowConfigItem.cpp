@@ -16,6 +16,7 @@ WindowConfigItem::WindowConfigItem(tWindowActionConfigPtr& config, QWidget *pare
     : QWidget(parent)
     , ui(new Ui::WindowConfigItem)
     , mColor()
+    , isShowed(false)
 {
     ui->setupUi(this);
     Utils::fillCombobox(ui->comboBoxActionType);
@@ -63,6 +64,7 @@ void WindowConfigItem::setWindowActionConfig(tWindowActionConfigPtr& config)
     mWindowActionConfig = config;
     ui->lineEditWindowName->setText(mWindowActionConfig->getName());
     mColor = config->getColor();
+    ui->lineEditColor->setText(mColor.name(QColor::HexArgb));
     ui->spinBoxWidth->setValue(config->getWidth());
     ui->spinBoxHeight->setValue(config->getHeight());
     ui->spinBoxPositionX->setValue(config->getX());
@@ -104,9 +106,20 @@ void WindowConfigItem::onPushButtonSelectColorPressed()
     }
 }
 
-void WindowConfigItem::onPushButtonShowPressed()
+void WindowConfigItem::onPushButtonShowHidePressed()
 {
-    mWindowActionWidget->show();
+    if(isShowed)
+    {
+        ui->pushButtonShowHide->setText("Показать");
+        mWindowActionWidget->hide();
+        isShowed = false;
+    }
+    else
+    {
+        ui->pushButtonShowHide->setText("Скрыть");
+        mWindowActionWidget->show();
+        isShowed = true;
+    }
 }
 
 void WindowConfigItem::onComboBoxActionTypeCurrentTextChanged(const QString& /*text*/)

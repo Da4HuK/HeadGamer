@@ -12,7 +12,7 @@ class WindowActionWidget;
 class WindowConfigItem;
 
 using tWindowConfigItemPtr = std::shared_ptr<WindowConfigItem>;
-using tContsWindowConfigItemPtr = const std::shared_ptr<const WindowConfigItem>;
+using tConstWindowConfigItemPtr = const std::shared_ptr<const WindowConfigItem>;
 
 namespace Ui {
 class WindowConfigItem;
@@ -35,7 +35,7 @@ signals:
 private slots:
     void onPushButtonDeletePressed();
     void onPushButtonSelectColorPressed();
-    void onPushButtonShowPressed();
+    void onPushButtonShowHidePressed();
     void onComboBoxActionTypeCurrentTextChanged(const QString& text);
     void onLineEditWindowNameTextChanged(const QString& text);
 
@@ -51,6 +51,7 @@ private:
     QColor mColor;
     std::shared_ptr<WindowActionWidget> mWindowActionWidget;
     tWindowActionConfigPtr mWindowActionConfig;
+    bool isShowed;
 };
 
 #endif // WINDOWCONFIGITEM_HPP

@@ -211,9 +211,17 @@ QJsonObject colorToJson(const QColor& color)
 
 QColor jsonToColor(const QJsonObject& json)
 {
-    auto readColorPart = [json] (QString colorPartStr)
+    QString colorFieldName = *(HeadGamer::WINDOW_COLOR_STR);
+    if((json.contains(colorFieldName) == false) || (json[colorFieldName].isObject() == false))
     {
-        return jsonToInt32(json, colorPartStr, 0);
+        return QColor(0,0,0,0);
+    }
+
+    QJsonObject colorJson = json[colorFieldName].toObject();
+
+    auto readColorPart = [&colorJson] (QString colorPartStr)
+    {
+        return jsonToInt32(colorJson, colorPartStr, 0);
     };
 
     int32_t r = readColorPart(*(HeadGamer::WINDOW_COLOR_R_STR));
