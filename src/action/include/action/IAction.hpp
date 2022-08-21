@@ -18,6 +18,6 @@ public:
 };
 
 using tActionPtr = std::shared_ptr<IAction>;
-using tContsActionPtr = const std::shared_ptr<const IAction>;
+using tConstActionPtr = const std::shared_ptr<const IAction>;
 
 #endif // IACTION_HPP

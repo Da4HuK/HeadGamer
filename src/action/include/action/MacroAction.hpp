@@ -7,13 +7,14 @@
 
 class MacroAction;
 using tMacroActionPtr = std::shared_ptr<MacroAction>;
-using tContsMacroActionPtr = const std::shared_ptr<const MacroAction>;
+using tConstMacroActionPtr = const std::shared_ptr<const MacroAction>;
 
 class MacroAction : public ActionBase
 {
 public:
     MacroAction();
     MacroAction(const QString& name);
+    virtual ~MacroAction() = default;
 
     // IAction interface
     void action() override;

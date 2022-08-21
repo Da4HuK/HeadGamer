@@ -7,6 +7,10 @@
 #include <QWidget>
 
 class IAction;
+class WindowActionWidget;
+
+using tWindowActionWidgetPtr = std::shared_ptr<WindowActionWidget>;
+using tConstWindowActionWidgetPtr = const std::shared_ptr<const WindowActionWidget>;
 
 class WindowActionWidget : public QWidget
 {

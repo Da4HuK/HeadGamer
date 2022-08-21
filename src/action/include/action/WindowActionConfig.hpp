@@ -10,12 +10,13 @@
 class WindowActionConfig;
 
 using tWindowActionConfigPtr = std::shared_ptr<WindowActionConfig>;
-using tContsWindowActionConfigPtr = const std::shared_ptr<const WindowActionConfig>;
+using tConstWindowActionConfigPtr = const std::shared_ptr<const WindowActionConfig>;
 
 class WindowActionConfig : public IJson
 {
 public:
     WindowActionConfig();
+    virtual ~WindowActionConfig() = default;
 
     QJsonObject toJson() const override;
     void fromJson(const QJsonObject& json) override;

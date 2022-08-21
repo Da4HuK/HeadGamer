@@ -38,6 +38,7 @@ private:
     void readWindowConfigList(const QString& path);
     void readWindowConfigFile(const QString& fileName, const tWindowActionConfigListPtr& windowConfigList);
     void addWindowsActionConfigItem(tWindowActionConfigPtr& windowActionConfig);
+    void init();
     Ui::WindowConfigForm *ui;
     tWindowActionConfigListPtr mWindowActionConfigList;
     std::vector<tWindowConfigItemPtr> mWindowsItemsVector;
@@ -45,6 +46,7 @@ private:
 
     // QWidget interface
 protected:
+    void showEvent(QShowEvent* event) override;
     void hideEvent(QHideEvent* event) override;
 };
 

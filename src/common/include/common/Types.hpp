@@ -101,6 +101,7 @@ Q_GLOBAL_STATIC_WITH_ARGS(const QString, WINDOW_ACTION_CONFIG_LIST_STR, ("window
 Q_GLOBAL_STATIC_WITH_ARGS(const QString, KEY_PRESS_ACTION_STR, ("KeyPressAction") );
 Q_GLOBAL_STATIC_WITH_ARGS(const QString, MACRO_ACTION_STR, ("MacroAction") );
 Q_GLOBAL_STATIC_WITH_ARGS(const QString, SWITCH_PRESET_ACTION_STR, ("SwitchPresetAction") );
+Q_GLOBAL_STATIC_WITH_ARGS(const QString, STOP_ACTION_STR, ("StopAction") );
 
 //WindowActionConfig fieldnames
 Q_GLOBAL_STATIC_WITH_ARGS(const QString, WINDOW_ACTION_NAME_STR, ("name") );
@@ -137,6 +138,9 @@ int32_t findVirtualKey(const QString& buttonStr);
 
 static const int32_t MOUSE_WHEEL_UP = 0xFFE0;
 static const int32_t MOUSE_WHEEL_DOWN = 0xFFE1;
+
+static const int32_t SCRIPT_ACTION = 0;
+static const int32_t STOP_ACTION = -1;
 
 static const tVirtualKeys VIRTUAL_KEYS
 {

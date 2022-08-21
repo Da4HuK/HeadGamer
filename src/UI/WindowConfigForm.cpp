@@ -13,8 +13,7 @@ WindowConfigForm::WindowConfigForm(QWidget *parent)
     , mLastIndex(0)
 {
     ui->setupUi(this);
-    mWindowActionConfigList = std::make_shared<WindowActionConfigList>();
-    readWindowConfigList(Settings::WINDOW_DIR);
+    init();
 }
 
 WindowConfigForm::~WindowConfigForm()
@@ -113,6 +112,17 @@ void WindowConfigForm::addWindowsActionConfigItem(tWindowActionConfigPtr& window
     connect(windowConfigItem.get(), &WindowConfigItem::deleteItem, this, &WindowConfigForm::onDeleteWindowConfigItem);
     ui->verticalLayoutWindowsItems->insertWidget(mLastIndex, windowConfigItem.get());
     ++mLastIndex;
+}
+
+void WindowConfigForm::init()
+{
+    mWindowActionConfigList = std::make_shared<WindowActionConfigList>();
+    readWindowConfigList(Settings::WINDOW_DIR);
+}
+
+void WindowConfigForm::showEvent(QShowEvent* /*event*/)
+{
+    init();
 }
 
 

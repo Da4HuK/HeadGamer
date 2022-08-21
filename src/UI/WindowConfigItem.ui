@@ -333,7 +333,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="pushButtonShow">
+      <widget class="QPushButton" name="pushButtonShowHide">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -421,10 +421,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButtonShow</sender>
+   <sender>pushButtonShowHide</sender>
    <signal>pressed()</signal>
    <receiver>WindowConfigItem</receiver>
-   <slot>onPushButtonShowPressed()</slot>
+   <slot>onPushButtonShowHidePressed()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>931</x>
@@ -536,7 +536,7 @@
  <slots>
   <slot>onPushButtonDeletePressed()</slot>
   <slot>onPushButtonSelectColorPressed()</slot>
-  <slot>onPushButtonShowPressed()</slot>
+  <slot>onPushButtonShowHidePressed()</slot>
   <slot>onXChanged(int)</slot>
   <slot>onYChanged(int)</slot>
   <slot>onWidthChanged(int)</slot>

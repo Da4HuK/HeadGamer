@@ -14,6 +14,10 @@ target_sources(
             WindowActionConfig.cpp
             include/action/WindowActionConfigList.hpp
             WindowActionConfigList.cpp
+            include/action/StopAction.hpp
+            StopAction.cpp
+            include/action/StopEvent.hpp
+            StopEvent.cpp
 )
 
 target_include_directories(${TARGET} PUBLIC include)

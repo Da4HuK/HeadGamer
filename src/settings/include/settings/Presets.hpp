@@ -7,7 +7,7 @@
 #include <memory>
 class Presets;
 using tPresetPtr = std::shared_ptr<Presets>;
-using tContsPresetPtr = const std::shared_ptr<const Presets>;
+using tConstPresetPtr = const std::shared_ptr<const Presets>;
 
 class Presets : public IJson
 {
@@ -37,7 +37,7 @@ public:
     void setMiddleMouseAction(const tActionPtr& newMiddleMouseAction);
 
 private:
-    static void actionToJson(const QString& name, tContsActionPtr action, QJsonObject& json);
+    static void actionToJson(const QString& name, tConstActionPtr action, QJsonObject& json);
 
     tActionPtr mUpAction;
     tActionPtr mDownAction;

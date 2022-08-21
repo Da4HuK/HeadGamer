@@ -8,6 +8,7 @@ class ActionBase : public IAction
 public:
     ActionBase();
     ActionBase(const QString& name);
+    virtual ~ActionBase() override = default;
 
     // IAction interface
     const QString& getName() const override;

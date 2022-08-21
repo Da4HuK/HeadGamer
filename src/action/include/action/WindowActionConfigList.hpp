@@ -9,12 +9,13 @@
 class WindowActionConfigList;
 
 using tWindowActionConfigListPtr = std::shared_ptr<WindowActionConfigList>;
-using tContsWindowActionConfigListPtr = const std::shared_ptr<const WindowActionConfigList>;
+using tConstWindowActionConfigListPtr = const std::shared_ptr<const WindowActionConfigList>;
 
 class WindowActionConfigList : public IJson
 {
 public:
     WindowActionConfigList();
+    virtual ~WindowActionConfigList() = default;
 
     std::vector<tWindowActionConfigPtr>& getList() { return mConfigList; }
 

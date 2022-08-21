@@ -1,19 +1,13 @@
 #include "UI/MainWindow.hpp"
 #include "ui_MainWindow.h"
 #include "hook/HookHandler.hpp"
-#include "action/KeyPressAction.hpp"
 #include "common/Utils.hpp"
-
-#include "UI/ComboBoxDelegate.hpp"
-//#include "UI/DirectionWidget.hpp"
+#include "action/StopEvent.hpp"
 
 #include <QFileDialog>
 #include <QDirIterator>
 #include <QPalette>
-//#include <QComboBox>
 #include <QDebug>
-
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,8 +16,10 @@ MainWindow::MainWindow(QWidget *parent)
     , mMouseDirectionHandler(nullptr)
     , mMouseActionHandler(nullptr)
     , mPresets(std::make_shared<Presets>())
-    , mWindowAction(nullptr)
+    , mWindowActionWidgetList()
+    , mWindowActionConfigList(nullptr)
     , mWindowConfigForm(nullptr)
+    , mIsInitialized(false)
     , mIsProfileChanged(false)
     , mIsPresetChanged(false)
 {
@@ -31,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     qDebug() << "MainWindow()";
     init();
+    connect(&StopEvent::getInstance(), &StopEvent::stopEmulation, this, &MainWindow::onStopEvent);
 }
 
 MainWindow::~MainWindow()
@@ -117,6 +114,10 @@ void MainWindow::onPushButtonDeletePresetPressed()
 
 void MainWindow::onPushButtonStartPressed()
 {
+    this->hide();
+    fillWindowActionWidgetList();
+    showAllWindowActionWidgets();
+
     if(mMouseDirectionHandler == nullptr)
     {
         mMouseDirectionHandler = std::make_shared<Mouse4DirectionsHandler>(mHookHandler);
@@ -124,7 +125,6 @@ void MainWindow::onPushButtonStartPressed()
         mMouseActionHandler = std::make_shared<MouseActionHandler>(mPresets, mMouseDirectionHandler);
     }
     mMouseDirectionHandler->start();
-
 }
 
 void MainWindow::onPushButtonClosePressed()
@@ -133,6 +133,7 @@ void MainWindow::onPushButtonClosePressed()
     {
         mMouseDirectionHandler->stop();
     }
+    mWindowActionWidgetList.clear();
     this->close();
 }
 
@@ -143,9 +144,6 @@ void MainWindow::onPushButtonWindowsSettingPressed()
         mWindowConfigForm = std::make_shared<WindowConfigForm>(this);
     }
     mWindowConfigForm->show();
-
-//    mWindowAction = std::make_shared<WindowActionWidget>(nullptr);
-//    mWindowAction->show();
 }
 
 void MainWindow::onComboBoxButtonsProfilesCurrentTextChanged(const QString& text)
@@ -160,7 +158,7 @@ void MainWindow::onComboBoxButtonsProfilesCurrentTextChanged(const QString& text
 
 void MainWindow::onComboBoxButtonsPresetCurrentTextChanged(const QString& text)
 {
-    if(text.isEmpty() == false)
+    if(mIsInitialized && text.isEmpty() == false)
     {
         readPresetFile(text, mPresets);
         initPresetControls(mPresets);
@@ -171,13 +169,25 @@ void MainWindow::onComboBoxButtonsPresetCurrentTextChanged(const QString& text)
 
 void MainWindow::onComboBoxWindowsSettingsTextChanged(const QString& text)
 {
-    if(text.isEmpty() == false)
+    if(mIsInitialized && text.isEmpty() == false)
     {
-        // TODO read modal window exit code to check if window config changed
+        // TODO read dialog window exit code to check if window config changed
         Utils::markSettingsComboboxChanged(ui->comboBoxProfiles);
-//        readPresetFile(text, mPresets);
-//        initPresetControls(mPresets);
     }
+}
+
+void MainWindow::onStopEvent()
+{
+    qDebug() << "onStopEvent received";
+    mHookHandler->stop();
+    if(mMouseDirectionHandler != nullptr)
+    {
+        mMouseDirectionHandler->stop();
+    }
+
+    hideAllWindowActionWidgets();
+
+    this->show();
 }
 
 void MainWindow::init()
@@ -189,6 +199,8 @@ void MainWindow::init()
     readWindowConfigsList(Settings::WINDOW_DIR);
 
     mHookHandler = std::make_shared<HookHandler>();
+    mWindowActionConfigList = std::make_shared<WindowActionConfigList>();
+    mIsInitialized = true;
 }
 
 void MainWindow::createSettingsDirectories()
@@ -232,6 +244,7 @@ void MainWindow::readPresetFile(const QString& fileName, const tPresetPtr& prese
 
 void MainWindow::readWindowConfigsList(const QString& path)
 {
+    ui->comboBoxWindowsSettings->addItem(*(HeadGamer::ACTION_NONE_STR));
     Utils::fillComboboxWithJsonFileNames(ui->comboBoxWindowsSettings, path);
 }
 
@@ -274,9 +287,9 @@ void MainWindow::initProfileSettingsControls(const tSettingsPtr& settings)
     }
 }
 
-void MainWindow::initPresetControls(tContsPresetPtr& presets)
+void MainWindow::initPresetControls(tConstPresetPtr& presets)
 {
-    auto initCombobox = [] (QComboBox* combobox, tContsActionPtr action)
+    auto initCombobox = [] (QComboBox* combobox, tConstActionPtr action)
     {
         if(action == nullptr)
         {
@@ -319,6 +332,40 @@ void MainWindow::fillPresets(tPresetPtr& presets)
     presets->setLeftMouseAction(getPreset(HeadGamer::eMouseButton::LEFT));
     presets->setRightMouseAction(getPreset(HeadGamer::eMouseButton::RIGHT));
     presets->setMiddleMouseAction(getPreset(HeadGamer::eMouseButton::MIDLE));
+}
+
+void MainWindow::fillWindowActionWidgetList()
+{
+    QString windowConfigName = ui->comboBoxWindowsSettings->currentText();
+    if(windowConfigName == *(HeadGamer::ACTION_NONE_STR))
+    {
+        return;
+    }
+
+    QString path = Settings::WINDOW_DIR + "/" + windowConfigName;
+    if(Utils::readFile(path, mWindowActionConfigList))
+    {
+        for(const auto& config : mWindowActionConfigList->getList())
+        {
+            mWindowActionWidgetList.push_back(std::make_shared<WindowActionWidget>(config));
+        }
+    }
+}
+
+void MainWindow::showAllWindowActionWidgets()
+{
+    for(auto& widget : mWindowActionWidgetList)
+    {
+        widget->show();
+    }
+}
+
+void MainWindow::hideAllWindowActionWidgets()
+{
+    for(auto& widget : mWindowActionWidgetList)
+    {
+        widget->hide();
+    }
 }
 
 HeadGamer::eMode MainWindow::getMode()
